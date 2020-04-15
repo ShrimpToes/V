@@ -1,6 +1,23 @@
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.6.2'
+    }
+}
+
 plugins {
     id 'groovy'
     id 'java'
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
 }
 
 version '1.0-SNAPSHOT'
@@ -11,7 +28,9 @@ project.ext.lwjglVersion = "3.2.3"
 project.ext.lwjglNatives = "natives-windows"
 
 repositories {
+    google()
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
