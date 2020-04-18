@@ -2,7 +2,7 @@ package squid.engine.utils;
 
 import org.joml.Vector2d;
 import org.joml.Vector2f;
-import squid.engine.Window;
+import squid.engine.IWindow;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -25,17 +25,17 @@ public class MouseInput {
         displVec = new Vector2f();
     }
 
-    public void init(Window window) {
-        glfwSetInputMode(window.getWindowHandle(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-        glfwSetInputMode(window.getWindowHandle(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-        glfwSetCursorPosCallback(window.getWindowHandle(), (windowHandle, xpos, ypos) -> {
+    public void init(IWindow IWindow) {
+        glfwSetInputMode(IWindow.getWindowHandle(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+        glfwSetInputMode(IWindow.getWindowHandle(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        glfwSetCursorPosCallback(IWindow.getWindowHandle(), (windowHandle, xpos, ypos) -> {
             currentPos.x = xpos;
             currentPos.y = ypos;
         });
-        glfwSetCursorEnterCallback(window.getWindowHandle(), (windowHandle, entered) -> {
+        glfwSetCursorEnterCallback(IWindow.getWindowHandle(), (windowHandle, entered) -> {
             inWindow = entered;
         });
-        glfwSetMouseButtonCallback(window.getWindowHandle(), (windowHandle, button, action, mode) -> {
+        glfwSetMouseButtonCallback(IWindow.getWindowHandle(), (windowHandle, button, action, mode) -> {
             leftButtonPressed = button == GLFW_MOUSE_BUTTON_1 && action == GLFW_PRESS;
             rightButtonPressed = button == GLFW_MOUSE_BUTTON_2 && action == GLFW_PRESS;
         });
@@ -45,7 +45,7 @@ public class MouseInput {
         return displVec;
     }
 
-    public void input(Window window) {
+    public void input(IWindow IWindow) {
         displVec.x = 0;
         displVec.y = 0;
         if (previousPos.x > 0 && previousPos.y > 0 && inWindow) {

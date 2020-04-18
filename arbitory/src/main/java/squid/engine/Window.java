@@ -3,7 +3,6 @@ package squid.engine;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
-import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.IntBuffer;
@@ -12,8 +11,9 @@ import static java.sql.Types.NULL;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11C.*;
+import static org.lwjgl.opengl.GL.createCapabilities;
 
-public class Window {
+public class Window implements IWindow {
     private long window;
     private String name;
     private static int  width = 900;
@@ -27,6 +27,17 @@ public class Window {
         resized = false;
     }
 
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+    @Override
     public void init() {
         System.out.println("LWJGL " + Version.getVersion());
         GLFWErrorCallback.createPrint(System.err).set();
@@ -40,8 +51,8 @@ public class Window {
         if ( window == NULL) throw new RuntimeException("Failed to create the GLFW window");
 
         glfwSetFramebufferSizeCallback(window, (window, width, height) -> {
-            this.width = width;
-            this.height = height;
+            Window.width = width;
+            Window.height = height;
             this.setResized(true);
         });
 
@@ -71,7 +82,7 @@ public class Window {
 
         glfwShowWindow(window);
 
-        GL.createCapabilities();
+        createCapabilities();
 
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_TEXTURE_2D);
@@ -83,15 +94,13 @@ public class Window {
         setClearColor(0.5f, 0.5f, 0.5f, 1f);
     }
 
+    @Override
     public void update() {
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
-    public static void clear() {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    }
-
+    @Override
     public void exit() {
 
         glfwFreeCallbacks(window);
@@ -101,34 +110,32 @@ public class Window {
         glfwSetErrorCallback(null).free();
     }
 
+    @Override
     public boolean shouldExit() {
         return glfwWindowShouldClose(window);
     }
 
+    @Override
     public void setResized(boolean resized) {
         this.resized = resized;
     }
 
+    @Override
     public boolean isKeyPressed(int keyCode) {
         return glfwGetKey(window, keyCode) == GLFW_PRESS;
     }
 
+    @Override
     public boolean isResized() {
         return resized;
     }
 
-    public static int getWidth() {
-        return width;
-    }
-
-    public static int getHeight() {
-        return height;
-    }
-
+    @Override
     public void setClearColor(float r, float g, float b, float alpha) {
         glClearColor(r, g, b, alpha);
     }
 
+    @Override
     public long getWindowHandle() {
         return window;
     }

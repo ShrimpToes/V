@@ -3,11 +3,11 @@ package squid.game;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
+import squid.engine.IWindow;
 import squid.engine.graphics.textures.Material;
 import squid.engine.scene.*;
 import squid.engine.IGame;
 import squid.engine.graphics.*;
-import squid.engine.Window;
 import squid.engine.graphics.lighting.*;
 import squid.engine.graphics.Mesh;
 import squid.engine.graphics.textures.Texture;
@@ -215,31 +215,31 @@ public class DummyGame implements IGame {
     }
 
     @Override
-    public void input(Window window, MouseInput mouseInput) {
+    public void input(IWindow IWindow, MouseInput mouseInput) {
         cameraInc.set(0, 0, 0);
         angleInc = 0f;
-        if (window.isKeyPressed(GLFW_KEY_W) ) {
+        if (IWindow.isKeyPressed(GLFW_KEY_W) ) {
             cameraInc.z = -1f;
         }
-        if (window.isKeyPressed(GLFW_KEY_S) ) {
+        if (IWindow.isKeyPressed(GLFW_KEY_S) ) {
             cameraInc.z = 1f;
         }
-        if (window.isKeyPressed(GLFW_KEY_A)) {
+        if (IWindow.isKeyPressed(GLFW_KEY_A)) {
             cameraInc.x = -1f;
         }
-        if (window.isKeyPressed(GLFW_KEY_D)) {
+        if (IWindow.isKeyPressed(GLFW_KEY_D)) {
             cameraInc.x = 1f;
         }
-        if (window.isKeyPressed(GLFW_KEY_SPACE)) {
+        if (IWindow.isKeyPressed(GLFW_KEY_SPACE)) {
             cameraInc.y = 1f;
         }
-        if (window.isKeyPressed(GLFW_KEY_LEFT_SHIFT)) {
+        if (IWindow.isKeyPressed(GLFW_KEY_LEFT_SHIFT)) {
             cameraInc.y = -1f;
         }
-        if (window.isKeyPressed(GLFW_KEY_LEFT)) {
+        if (IWindow.isKeyPressed(GLFW_KEY_LEFT)) {
             angleInc -= 0.1f;
         }
-        if (window.isKeyPressed(GLFW_KEY_RIGHT)) {
+        if (IWindow.isKeyPressed(GLFW_KEY_RIGHT)) {
             angleInc += 0.1f;
         }
         if (mouseInput.isLeftButtonPressed()) {
@@ -313,8 +313,8 @@ public class DummyGame implements IGame {
     }
 
     @Override
-    public void render(Window window) throws Exception {
-        renderer.render(window, camera, scene, hud);
+    public void render(IWindow IWindow) throws Exception {
+        renderer.render(IWindow, camera, scene, hud);
     }
 
     @Override

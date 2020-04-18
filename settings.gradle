@@ -1,2 +1,2 @@
 rootProject.name = 'Arbitory'
-include ':arbitory', ':android', ':android'
+include ':arbitory', ':android', ':desktop'

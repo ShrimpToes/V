@@ -3,6 +3,7 @@ package squid.engine.graphics;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
+import squid.engine.IWindow;
 import squid.engine.graphics.lighting.*;
 import squid.engine.graphics.textures.Material;
 import squid.engine.graphics.textures.Texture;
@@ -19,7 +20,6 @@ import squid.engine.scene.pieces.particle.IParticleEmitter;
 import squid.engine.utils.Camera;
 import squid.engine.utils.Transformation;
 import squid.engine.utils.Utils;
-import squid.engine.Window;
 
 import java.util.List;
 import java.util.Map;
@@ -240,23 +240,23 @@ public class Renderer {
         createParticleUniforms(particleShader.getProgramId());
     }
 
-    public void render(Window window, Camera camera, Scene scene, IHud hud) throws Exception {
+    public void render(IWindow IWindow, Camera camera, Scene scene, IHud hud) throws Exception {
         clear();
 
-        renderDepthMap(window, scene, camera);
+        renderDepthMap(IWindow, scene, camera);
 
-        glViewport(0, 0, window.getWidth(), window.getHeight());
+        glViewport(0, 0, IWindow.getWidth(), IWindow.getHeight());
 
-        transformation.updateProjectionMatrix(FOV, window.getWidth(), window.getHeight(), Z_NEAR, Z_FAR);
+        transformation.updateProjectionMatrix(FOV, IWindow.getWidth(), IWindow.getHeight(), Z_NEAR, Z_FAR);
         transformation.updateViewMatrix(camera);
 
         renderScene(scene);
         renderParticles(scene);
 //        renderSkyBox(scene);
-        renderHud(window, hud);
+        renderHud(IWindow, hud);
     }
 
-    public void renderDepthMap(Window window, Scene scene, Camera camera) {
+    public void renderDepthMap(IWindow IWindow, Scene scene, Camera camera) {
         glBindFramebuffer(GL_FRAMEBUFFER, shadowMap.getDepthMapFBO());
         glViewport(0, 0, ShadowMap.SHADOW_MAP_WIDTH, ShadowMap.SHADOW_MAP_HEIGHT);
 
@@ -485,11 +485,11 @@ public class Renderer {
         directionalLight.set();
     }
 
-    private void renderHud(Window window, IHud hud) throws Exception {
+    private void renderHud(IWindow IWindow, IHud hud) throws Exception {
 
         hudShader.bind();
 
-        Matrix4f ortho = transformation.getOrtho2dProjectionMatrix(0, window.getWidth(), window.getHeight(), 0);
+        Matrix4f ortho = transformation.getOrtho2dProjectionMatrix(0, IWindow.getWidth(), IWindow.getHeight(), 0);
         for (GamePiece gamePiece : hud.getGamePieces()) {
             Mesh mesh = gamePiece.getMesh();
             // Set ortohtaphic and model matrix for this HUD item
@@ -511,7 +511,7 @@ public class Renderer {
     }
 
     public void clear() {
-        Window.clear();
+        IWindow.clear();
     }
 
     public void cleanup() {

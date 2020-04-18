@@ -1,5 +1,7 @@
 package squid.engine;
 
+import squid.engine.graphics.gl.GL;
+import squid.engine.graphics.gl.GL11;
 import squid.engine.utils.MouseInput;
 import squid.engine.Window;
 import squid.engine.IGame;
@@ -9,14 +11,17 @@ public class Game implements Runnable{
     public static double msPerFrame = 20d;
     public static double msPerTick = 50d;
     public String name;
-    private Window window;
+    private IWindow window;
     private MouseInput mouseInput;
     private final Thread gameThread;
     private final IGame game;
 
-    public Game(String name, int width, int height, IGame game) {
+    public static GL gl;
+
+    public Game(String name, IWindow window, IGame game, GL gl) {
+        Game.gl = gl;
         this.name = name;
-        window = new Window(name, width, height);
+        this.window = window;
         mouseInput = new MouseInput();
         this.game = game;
         gameThread = new Thread(this, name + "_thread");

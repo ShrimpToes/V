@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        new Game("game", 1000, 900, new DummyGame()).start();
+        new Game("game", new Window("game", 900, 900), new DummyGame()).start();
 
     }
 }
