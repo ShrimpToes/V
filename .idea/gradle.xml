@@ -4,11 +4,15 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT" />
+        </compositeConfiguration>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/android" />
             <option value="$PROJECT_DIR$/arbitory" />
           </set>
         </option>
@@ -20,6 +24,16 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/arbitory" />
+          </set>
+        </option>
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/graphics" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/graphics" />
           </set>
         </option>
         <option name="useQualifiedModuleNames" value="true" />

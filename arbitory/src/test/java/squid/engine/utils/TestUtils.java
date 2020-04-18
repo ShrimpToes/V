@@ -1,4 +1,4 @@
-package test.java.squid.engine.utils;
+package squid.engine.utils;
 
 import org.junit.Test;
 

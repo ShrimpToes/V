@@ -1,6 +1,7 @@
 package squid.engine.graphics;
 
 import org.lwjgl.system.MemoryUtil;
+import squid.engine.graphics.gl.GL11;
 import squid.engine.graphics.textures.Material;
 import squid.engine.graphics.textures.Texture;
 import squid.engine.scene.pieces.GamePiece;
@@ -12,10 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static org.lwjgl.opengl.GL11C.GL_FLOAT;
-import static org.lwjgl.opengl.GL15C.*;
-import static org.lwjgl.opengl.GL15C.GL_ARRAY_BUFFER;
-import static org.lwjgl.opengl.GL20C.*;
+import static org.lwjgl.opengl.GL11C.*;
 import static org.lwjgl.opengl.GL30C.*;
 import static org.lwjgl.system.MemoryUtil.memAllocFloat;
 import static org.lwjgl.system.MemoryUtil.memFree;
