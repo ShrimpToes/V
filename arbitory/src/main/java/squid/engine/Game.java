@@ -1,10 +1,7 @@
 package squid.engine;
 
 import squid.engine.graphics.gl.GL;
-import squid.engine.graphics.gl.GL11;
 import squid.engine.utils.MouseInput;
-import squid.engine.Window;
-import squid.engine.IGame;
 
 public class Game implements Runnable{
 

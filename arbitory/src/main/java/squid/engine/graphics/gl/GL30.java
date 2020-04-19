@@ -622,29 +622,13 @@ public interface GL30 extends GL20 {
 
     void glGenVertexArrays(int n, java.nio.IntBuffer arrays);
 
+    int glGenVertexArrays();
+
+    void glDeleteVertexArrays(int id);
+
     // C function GLboolean glIsVertexArray ( GLuint array )
 
     boolean glIsVertexArray(int array);
-
-//
-// // C function void glGetIntegeri_v ( GLenum target, GLuint index, GLint *data )
-//
-// public void glGetIntegeri_v(
-// int target,
-// int index,
-// int[] data,
-// int offset
-// );
-//
-// // C function void glGetIntegeri_v ( GLenum target, GLuint index, GLint *data )
-//
-// public void glGetIntegeri_v(
-// int target,
-// int index,
-// java.nio.IntBuffer data
-// );
-
-    // C function void glBeginTransformFeedback ( GLenum primitiveMode )
 
     void glBeginTransformFeedback(int primitiveMode);
 
@@ -664,267 +648,25 @@ public interface GL30 extends GL20 {
 
     void glTransformFeedbackVaryings(int program, String[] varyings, int bufferMode);
 
-// // C function void glGetTransformFeedbackVarying ( GLuint program, GLuint index, GLsizei bufSize, GLsizei *length, GLint *size,
-// GLenum *type, GLchar *name )
-//
-// public void glGetTransformFeedbackVarying(
-// int program,
-// int index,
-// int bufsize,
-// int[] length,
-// int lengthOffset,
-// int[] size,
-// int sizeOffset,
-// int[] type,
-// int typeOffset,
-// byte[] name,
-// int nameOffset
-// );
-//
-// // C function void glGetTransformFeedbackVarying ( GLuint program, GLuint index, GLsizei bufSize, GLsizei *length, GLint *size,
-// GLenum *type, GLchar *name )
-//
-// public void glGetTransformFeedbackVarying(
-// int program,
-// int index,
-// int bufsize,
-// java.nio.IntBuffer length,
-// java.nio.IntBuffer size,
-// java.nio.IntBuffer type,
-// byte name
-// );
-//
-// // C function void glGetTransformFeedbackVarying ( GLuint program, GLuint index, GLsizei bufSize, GLsizei *length, GLint *size,
-// GLenum *type, GLchar *name )
-//
-// public String glGetTransformFeedbackVarying(
-// int program,
-// int index,
-// int[] size,
-// int sizeOffset,
-// int[] type,
-// int typeOffset
-// );
-//
-// // C function void glGetTransformFeedbackVarying ( GLuint program, GLuint index, GLsizei bufSize, GLsizei *length, GLint *size,
-// GLenum *type, GLchar *name )
-//
-// public String glGetTransformFeedbackVarying(
-// int program,
-// int index,
-// java.nio.IntBuffer size,
-// java.nio.IntBuffer type
-// );
-
-    // C function void glVertexAttribIPointer ( GLuint index, GLint size, GLenum type, GLsizei stride, GLsizei offset )
-
     void glVertexAttribIPointer(int index, int size, int type, int stride, int offset);
-
-// // C function void glGetVertexAttribIiv ( GLuint index, GLenum pname, GLint *params )
-//
-// public void glGetVertexAttribIiv(
-// int index,
-// int pname,
-// int[] params,
-// int offset
-// );
-
-    // C function void glGetVertexAttribIiv ( GLuint index, GLenum pname, GLint *params )
 
     void glGetVertexAttribIiv(int index, int pname, java.nio.IntBuffer params);
 
-// // C function void glGetVertexAttribIuiv ( GLuint index, GLenum pname, GLuint *params )
-//
-// public void glGetVertexAttribIuiv(
-// int index,
-// int pname,
-// int[] params,
-// int offset
-// );
-
-    // C function void glGetVertexAttribIuiv ( GLuint index, GLenum pname, GLuint *params )
-
     void glGetVertexAttribIuiv(int index, int pname, java.nio.IntBuffer params);
-
-    // C function void glVertexAttribI4i ( GLuint index, GLint x, GLint y, GLint z, GLint w )
 
     void glVertexAttribI4i(int index, int x, int y, int z, int w);
 
-    // C function void glVertexAttribI4ui ( GLuint index, GLuint x, GLuint y, GLuint z, GLuint w )
-
     void glVertexAttribI4ui(int index, int x, int y, int z, int w);
-
-// // C function void glVertexAttribI4iv ( GLuint index, const GLint *v )
-//
-// public void glVertexAttribI4iv(
-// int index,
-// int[] v,
-// int offset
-// );
-//
-// // C function void glVertexAttribI4iv ( GLuint index, const GLint *v )
-//
-// public void glVertexAttribI4iv(
-// int index,
-// java.nio.IntBuffer v
-// );
-//
-// // C function void glVertexAttribI4uiv ( GLuint index, const GLuint *v )
-//
-// public void glVertexAttribI4uiv(
-// int index,
-// int[] v,
-// int offset
-// );
-//
-// // C function void glVertexAttribI4uiv ( GLuint index, const GLuint *v )
-//
-// public void glVertexAttribI4uiv(
-// int index,
-// java.nio.IntBuffer v
-// );
-//
-// // C function void glGetUniformuiv ( GLuint program, GLint location, GLuint *params )
-//
-// public void glGetUniformuiv(
-// int program,
-// int location,
-// int[] params,
-// int offset
-// );
-
-    // C function void glGetUniformuiv ( GLuint program, GLint location, GLuint *params )
 
     void glGetUniformuiv(int program, int location, java.nio.IntBuffer params);
 
-    // C function GLint glGetFragDataLocation ( GLuint program, const GLchar *name )
-
     int glGetFragDataLocation(int program, String name);
-
-// // C function void glUniform1ui ( GLint location, GLuint v0 )
-//
-// public void glUniform1ui(
-// int location,
-// int v0
-// );
-//
-// // C function void glUniform2ui ( GLint location, GLuint v0, GLuint v1 )
-//
-// public void glUniform2ui(
-// int location,
-// int v0,
-// int v1
-// );
-//
-// // C function void glUniform3ui ( GLint location, GLuint v0, GLuint v1, GLuint v2 )
-//
-// public void glUniform3ui(
-// int location,
-// int v0,
-// int v1,
-// int v2
-// );
-//
-// // C function void glUniform4ui ( GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3 )
-//
-// public void glUniform4ui(
-// int location,
-// int v0,
-// int v1,
-// int v2,
-// int v3
-// );
-//
-// // C function void glUniform1uiv ( GLint location, GLsizei count, const GLuint *value )
-//
-// public void glUniform1uiv(
-// int location,
-// int count,
-// int[] value,
-// int offset
-// );
-
-    // C function void glUniform1uiv ( GLint location, GLsizei count, const GLuint *value )
 
     void glUniform1uiv(int location, int count, java.nio.IntBuffer value);
 
-// // C function void glUniform2uiv ( GLint location, GLsizei count, const GLuint *value )
-//
-// public void glUniform2uiv(
-// int location,
-// int count,
-// int[] value,
-// int offset
-// );
-//
-// // C function void glUniform2uiv ( GLint location, GLsizei count, const GLuint *value )
-//
-// public void glUniform2uiv(
-// int location,
-// int count,
-// java.nio.IntBuffer value
-// );
-//
-// // C function void glUniform3uiv ( GLint location, GLsizei count, const GLuint *value )
-//
-// public void glUniform3uiv(
-// int location,
-// int count,
-// int[] value,
-// int offset
-// );
-
-    // C function void glUniform3uiv ( GLint location, GLsizei count, const GLuint *value )
-
-    void glUniform3uiv(int location, int count, java.nio.IntBuffer value);
-
-// // C function void glUniform4uiv ( GLint location, GLsizei count, const GLuint *value )
-//
-// public void glUniform4uiv(
-// int location,
-// int count,
-// int[] value,
-// int offset
-// );
-
-    // C function void glUniform4uiv ( GLint location, GLsizei count, const GLuint *value )
-
-    void glUniform4uiv(int location, int count, java.nio.IntBuffer value);
-
-// // C function void glClearBufferiv ( GLenum buffer, GLint drawbuffer, const GLint *value )
-//
-// public void glClearBufferiv(
-// int buffer,
-// int drawbuffer,
-// int[] value,
-// int offset
-// );
-
-    // C function void glClearBufferiv ( GLenum buffer, GLint drawbuffer, const GLint *value )
-
     void glClearBufferiv(int buffer, int drawbuffer, java.nio.IntBuffer value);
 
-// // C function void glClearBufferuiv ( GLenum buffer, GLint drawbuffer, const GLuint *value )
-//
-// public void glClearBufferuiv(
-// int buffer,
-// int drawbuffer,
-// int[] value,
-// int offset
-// );
-
-    // C function void glClearBufferuiv ( GLenum buffer, GLint drawbuffer, const GLuint *value )
-
     void glClearBufferuiv(int buffer, int drawbuffer, java.nio.IntBuffer value);
-
-// // C function void glClearBufferfv ( GLenum buffer, GLint drawbuffer, const GLfloat *value )
-//
-// public void glClearBufferfv(
-// int buffer,
-// int drawbuffer,
-// float[] value,
-// int offset
-// );
 
     // C function void glClearBufferfv ( GLenum buffer, GLint drawbuffer, const GLfloat *value )
 
@@ -938,41 +680,9 @@ public interface GL30 extends GL20 {
 
     String glGetStringi(int name, int index);
 
-    // C function void glCopyBufferSubData ( GLenum readTarget, GLenum writeTarget, GLintptr readOffset, GLintptr writeOffset,
-// GLsizeiptr size )
-
     void glCopyBufferSubData(int readTarget, int writeTarget, int readOffset, int writeOffset, int size);
 
-// // C function void glGetUniformIndices ( GLuint program, GLsizei uniformCount, const GLchar *const *uniformNames, GLuint
-// *uniformIndices )
-//
-// public void glGetUniformIndices(
-// int program,
-// String[] uniformNames,
-// int[] uniformIndices,
-// int uniformIndicesOffset
-// );
-
-    // C function void glGetUniformIndices ( GLuint program, GLsizei uniformCount, const GLchar *const *uniformNames, GLuint
-// *uniformIndices )
-
     void glGetUniformIndices(int program, String[] uniformNames, java.nio.IntBuffer uniformIndices);
-
-// // C function void glGetActiveUniformsiv ( GLuint program, GLsizei uniformCount, const GLuint *uniformIndices, GLenum pname,
-// GLint *params )
-//
-// public void glGetActiveUniformsiv(
-// int program,
-// int uniformCount,
-// int[] uniformIndices,
-// int uniformIndicesOffset,
-// int pname,
-// int[] params,
-// int paramsOffset
-// );
-
-    // C function void glGetActiveUniformsiv ( GLuint program, GLsizei uniformCount, const GLuint *uniformIndices, GLenum pname,
-// GLint *params )
 
     void glGetActiveUniformsiv(int program, int uniformCount, java.nio.IntBuffer uniformIndices, int pname,
                                java.nio.IntBuffer params);
@@ -981,41 +691,10 @@ public interface GL30 extends GL20 {
 
     int glGetUniformBlockIndex(int program, String uniformBlockName);
 
-// // C function void glGetActiveUniformBlockiv ( GLuint program, GLuint uniformBlockIndex, GLenum pname, GLint *params )
-//
-// public void glGetActiveUniformBlockiv(
-// int program,
-// int uniformBlockIndex,
-// int pname,
-// int[] params,
-// int offset
-// );
-
-    // C function void glGetActiveUniformBlockiv ( GLuint program, GLuint uniformBlockIndex, GLenum pname, GLint *params )
-
     void glGetActiveUniformBlockiv(int program, int uniformBlockIndex, int pname, java.nio.IntBuffer params);
-
-// // C function void glGetActiveUniformBlockName ( GLuint program, GLuint uniformBlockIndex, GLsizei bufSize, GLsizei *length,
-// GLchar *uniformBlockName )
-//
-// public void glGetActiveUniformBlockName(
-// int program,
-// int uniformBlockIndex,
-// int bufSize,
-// int[] length,
-// int lengthOffset,
-// byte[] uniformBlockName,
-// int uniformBlockNameOffset
-// );
-
-    // C function void glGetActiveUniformBlockName ( GLuint program, GLuint uniformBlockIndex, GLsizei bufSize, GLsizei *length,
-// GLchar *uniformBlockName )
 
     void glGetActiveUniformBlockName(int program, int uniformBlockIndex, java.nio.Buffer length,
                                      java.nio.Buffer uniformBlockName);
-
-    // C function void glGetActiveUniformBlockName ( GLuint program, GLuint uniformBlockIndex, GLsizei bufSize, GLsizei *length,
-// GLchar *uniformBlockName )
 
     String glGetActiveUniformBlockName(int program, int uniformBlockIndex);
 
@@ -1027,118 +706,9 @@ public interface GL30 extends GL20 {
 
     void glDrawArraysInstanced(int mode, int first, int count, int instanceCount);
 
-// // C function void glDrawElementsInstanced ( GLenum mode, GLsizei count, GLenum type, const GLvoid *indices, GLsizei
-// instanceCount )
-//
-// public void glDrawElementsInstanced(
-// int mode,
-// int count,
-// int type,
-// java.nio.Buffer indices,
-// int instanceCount
-// );
-
-    // C function void glDrawElementsInstanced ( GLenum mode, GLsizei count, GLenum type, const GLvoid *indices, GLsizei
-// instanceCount )
-
     void glDrawElementsInstanced(int mode, int count, int type, int indicesOffset, int instanceCount);
 
-// // C function GLsync glFenceSync ( GLenum condition, GLbitfield flags )
-//
-// public long glFenceSync(
-// int condition,
-// int flags
-// );
-//
-// // C function GLboolean glIsSync ( GLsync sync )
-//
-// public boolean glIsSync(
-// long sync
-// );
-//
-// // C function void glDeleteSync ( GLsync sync )
-//
-// public void glDeleteSync(
-// long sync
-// );
-//
-// // C function GLenum glClientWaitSync ( GLsync sync, GLbitfield flags, GLuint64 timeout )
-//
-// public int glClientWaitSync(
-// long sync,
-// int flags,
-// long timeout
-// );
-//
-// // C function void glWaitSync ( GLsync sync, GLbitfield flags, GLuint64 timeout )
-//
-// public void glWaitSync(
-// long sync,
-// int flags,
-// long timeout
-// );
-
-// // C function void glGetInteger64v ( GLenum pname, GLint64 *params )
-//
-// public void glGetInteger64v(
-// int pname,
-// long[] params,
-// int offset
-// );
-
-    // C function void glGetInteger64v ( GLenum pname, GLint64 *params )
-
     void glGetInteger64v(int pname, java.nio.LongBuffer params);
-
-// // C function void glGetSynciv ( GLsync sync, GLenum pname, GLsizei bufSize, GLsizei *length, GLint *values )
-//
-// public void glGetSynciv(
-// long sync,
-// int pname,
-// int bufSize,
-// int[] length,
-// int lengthOffset,
-// int[] values,
-// int valuesOffset
-// );
-//
-// // C function void glGetSynciv ( GLsync sync, GLenum pname, GLsizei bufSize, GLsizei *length, GLint *values )
-//
-// public void glGetSynciv(
-// long sync,
-// int pname,
-// int bufSize,
-// java.nio.IntBuffer length,
-// java.nio.IntBuffer values
-// );
-//
-// // C function void glGetInteger64i_v ( GLenum target, GLuint index, GLint64 *data )
-//
-// public void glGetInteger64i_v(
-// int target,
-// int index,
-// long[] data,
-// int offset
-// );
-//
-// // C function void glGetInteger64i_v ( GLenum target, GLuint index, GLint64 *data )
-//
-// public void glGetInteger64i_v(
-// int target,
-// int index,
-// java.nio.LongBuffer data
-// );
-//
-// // C function void glGetBufferParameteri64v ( GLenum target, GLenum pname, GLint64 *params )
-//
-// public void glGetBufferParameteri64v(
-// int target,
-// int pname,
-// long[] params,
-// int offset
-// );
-
-    // C function void glGetBufferParameteri64v ( GLenum target, GLenum pname, GLint64 *params )
 
     void glGetBufferParameteri64v(int target, int pname, java.nio.LongBuffer params);
 
@@ -1170,59 +740,15 @@ public interface GL30 extends GL20 {
 
     void glSamplerParameteri(int sampler, int pname, int param);
 
-// // C function void glSamplerParameteriv ( GLuint sampler, GLenum pname, const GLint *param )
-//
-// public void glSamplerParameteriv(
-// int sampler,
-// int pname,
-// int[] param,
-// int offset
-// );
-
-    // C function void glSamplerParameteriv ( GLuint sampler, GLenum pname, const GLint *param )
-
     void glSamplerParameteriv(int sampler, int pname, java.nio.IntBuffer param);
 
     // C function void glSamplerParameterf ( GLuint sampler, GLenum pname, GLfloat param )
 
     void glSamplerParameterf(int sampler, int pname, float param);
 
-// // C function void glSamplerParameterfv ( GLuint sampler, GLenum pname, const GLfloat *param )
-//
-// public void glSamplerParameterfv(
-// int sampler,
-// int pname,
-// float[] param,
-// int offset
-// );
-
-    // C function void glSamplerParameterfv ( GLuint sampler, GLenum pname, const GLfloat *param )
-
     void glSamplerParameterfv(int sampler, int pname, java.nio.FloatBuffer param);
 
-// // C function void glGetSamplerParameteriv ( GLuint sampler, GLenum pname, GLint *params )
-//
-// public void glGetSamplerParameteriv(
-// int sampler,
-// int pname,
-// int[] params,
-// int offset
-// );
-
-    // C function void glGetSamplerParameteriv ( GLuint sampler, GLenum pname, GLint *params )
-
     void glGetSamplerParameteriv(int sampler, int pname, java.nio.IntBuffer params);
-
-// // C function void glGetSamplerParameterfv ( GLuint sampler, GLenum pname, GLfloat *params )
-//
-// public void glGetSamplerParameterfv(
-// int sampler,
-// int pname,
-// float[] params,
-// int offset
-// );
-
-    // C function void glGetSamplerParameterfv ( GLuint sampler, GLenum pname, GLfloat *params )
 
     void glGetSamplerParameterfv(int sampler, int pname, java.nio.FloatBuffer params);
 
@@ -1262,116 +788,11 @@ public interface GL30 extends GL20 {
 
     void glResumeTransformFeedback();
 
-// // C function void glGetProgramBinary ( GLuint program, GLsizei bufSize, GLsizei *length, GLenum *binaryFormat, GLvoid *binary
-// )
-//
-// public void glGetProgramBinary(
-// int program,
-// int bufSize,
-// int[] length,
-// int lengthOffset,
-// int[] binaryFormat,
-// int binaryFormatOffset,
-// java.nio.Buffer binary
-// );
-//
-// // C function void glGetProgramBinary ( GLuint program, GLsizei bufSize, GLsizei *length, GLenum *binaryFormat, GLvoid *binary
-// )
-//
-// public void glGetProgramBinary(
-// int program,
-// int bufSize,
-// java.nio.IntBuffer length,
-// java.nio.IntBuffer binaryFormat,
-// java.nio.Buffer binary
-// );
-//
-// // C function void glProgramBinary ( GLuint program, GLenum binaryFormat, const GLvoid *binary, GLsizei length )
-//
-// public void glProgramBinary(
-// int program,
-// int binaryFormat,
-// java.nio.Buffer binary,
-// int length
-// );
-
-    // C function void glProgramParameteri ( GLuint program, GLenum pname, GLint value )
-
     void glProgramParameteri(int program, int pname, int value);
 
-// // C function void glInvalidateFramebuffer ( GLenum target, GLsizei numAttachments, const GLenum *attachments )
-//
-// public void glInvalidateFramebuffer(
-// int target,
-// int numAttachments,
-// int[] attachments,
-// int offset
-// );
-
-    // C function void glInvalidateFramebuffer ( GLenum target, GLsizei numAttachments, const GLenum *attachments )
-
     void glInvalidateFramebuffer(int target, int numAttachments, java.nio.IntBuffer attachments);
-
-// // C function void glInvalidateSubFramebuffer ( GLenum target, GLsizei numAttachments, const GLenum *attachments, GLint x,
-// GLint y, GLsizei width, GLsizei height )
-//
-// public void glInvalidateSubFramebuffer(
-// int target,
-// int numAttachments,
-// int[] attachments,
-// int offset,
-// int x,
-// int y,
-// int width,
-// int height
-// );
-
-    // C function void glInvalidateSubFramebuffer ( GLenum target, GLsizei numAttachments, const GLenum *attachments, GLint x,
-// GLint y, GLsizei width, GLsizei height )
 
     void glInvalidateSubFramebuffer(int target, int numAttachments, java.nio.IntBuffer attachments, int x, int y,
                                     int width, int height);
 
-// // C function void glTexStorage2D ( GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height )
-//
-// public void glTexStorage2D(
-// int target,
-// int levels,
-// int internalformat,
-// int width,
-// int height
-// );
-//
-// // C function void glTexStorage3D ( GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height,
-// GLsizei depth )
-//
-// public void glTexStorage3D(
-// int target,
-// int levels,
-// int internalformat,
-// int width,
-// int height,
-// int depth
-// );
-//
-// // C function void glGetInternalformativ ( GLenum target, GLenum internalformat, GLenum pname, GLsizei bufSize, GLint *params )
-//
-// public void glGetInternalformativ(
-// int target,
-// int internalformat,
-// int pname,
-// int bufSize,
-// int[] params,
-// int offset
-// );
-//
-// // C function void glGetInternalformativ ( GLenum target, GLenum internalformat, GLenum pname, GLsizei bufSize, GLint *params )
-//
-// public void glGetInternalformativ(
-// int target,
-// int internalformat,
-// int pname,
-// int bufSize,
-// java.nio.IntBuffer params
-// );
 }
