@@ -3,6 +3,7 @@ package squid.engine.graphics;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
+import squid.engine.Game;
 import squid.engine.IWindow;
 import squid.engine.graphics.lighting.*;
 import squid.engine.graphics.textures.Material;
@@ -511,7 +512,7 @@ public class Renderer {
     }
 
     public void clear() {
-        IWindow.clear();
+        Game.window.clear();
     }
 
     public void cleanup() {

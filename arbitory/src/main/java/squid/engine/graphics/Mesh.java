@@ -1,8 +1,11 @@
 package squid.engine.graphics;
 
-import jdk.internal.ref.Cleaner;
+import org.lwjgl.opengl.GL20C;
+import org.lwjgl.opengl.GL30C;
 import squid.engine.Game;
 import squid.engine.graphics.gl.GL15;
+import squid.engine.graphics.gl.GL20;
+import squid.engine.graphics.gl.GL30;
 import squid.engine.graphics.textures.Material;
 import squid.engine.graphics.textures.Texture;
 import squid.engine.scene.pieces.GamePiece;
@@ -15,10 +18,8 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import squid.engine.graphics.gl.GL11;
-import squid.engine.graphics.gl.GL20;
-import squid.engine.graphics.gl.GL30;
 
-import static squid.engine.graphics.gl.GL20.*;
+import static squid.engine.graphics.gl.GL11.*;
 
 public class Mesh {
 
@@ -28,10 +29,10 @@ public class Mesh {
     protected final int verticesCount;
     protected Material material;
 
-    private final GL11 gl11 = Game.gl.gl11;
-    private final GL15 gl15 = Game.gl.gl15;
-    private final GL20 gl20 = Game.gl.gl20;
-    private final GL30 gl30 = Game.gl.gl30;
+    protected final GL11 gl11 = Game.gl.gl11;
+    protected final GL15 gl15 = Game.gl.gl15;
+    protected final GL20 gl20 = Game.gl.gl20;
+    protected final GL30 gl30 = Game.gl.gl30;
 
     public Mesh(float[] vertices, int[] indices, float[] textCoords, float[] normals) {
         this(vertices, indices, textCoords, normals,
@@ -154,13 +155,13 @@ public class Mesh {
     protected void initRender() {
         Texture texture = material.getTexture();
         if (texture != null) {
-            gl20.glActiveTexture(GL_TEXTURE0);
-            gl20.glBindTexture(GL_TEXTURE_2D, texture.getId());
+            gl20.glActiveTexture(GL15.GL_TEXTURE0);
+            gl11.glBindTexture(GL_TEXTURE_2D, texture.getId());
         }
         Texture normalMap = material.getNormalMap();
         if ( normalMap != null ) {
-            gl20.glActiveTexture(GL_TEXTURE1);
-            gl20.glBindTexture(GL_TEXTURE_2D, normalMap.getId());
+            gl20.glActiveTexture(GL15.GL_TEXTURE1);
+            gl11.glBindTexture(GL_TEXTURE_2D, normalMap.getId());
         }
         gl30.glBindVertexArray(getVaoId());
         gl20.glEnableVertexAttribArray(0);
@@ -185,7 +186,7 @@ public class Mesh {
 
     protected void finishRender() {
         gl30.glBindVertexArray(0);
-        gl20.glBindTexture(GL_TEXTURE_2D, 0);
+        gl11.glBindTexture(GL_TEXTURE_2D, 0);
     }
 
     public void renderList(List<GamePiece> gamePieces, Consumer<GamePiece> consumer) {
@@ -220,7 +221,7 @@ public class Mesh {
     }
 
     public void deleteBuffers() {
-        gl30.glDisableVertexAttribArray(0);
+        gl20.glDisableVertexAttribArray(0);
 
         // Delete the VBOs
         gl15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);

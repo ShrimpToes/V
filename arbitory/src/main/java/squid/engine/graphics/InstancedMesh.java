@@ -30,7 +30,7 @@ public class InstancedMesh extends Mesh {
     public InstancedMesh(float[] vertices, int[] indices, float[] textCoords, float[] normals, int numInstances) {
         super(vertices, indices, textCoords, normals);
         this.numInstances = numInstances;
-        glBindVertexArray(vaoId);
+        gl30.glBindVertexArray(vaoId);
 
         instanceDataVBO = glGenBuffers();
         vboList.add(instanceDataVBO);

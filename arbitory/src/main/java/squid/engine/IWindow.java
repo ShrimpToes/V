@@ -1,12 +1,8 @@
 package squid.engine;
 
-import static org.lwjgl.opengl.GL11C.*;
-
 public interface IWindow {
 
-    static void clear() {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    }
+    void clear();
 
     int getWidth();
 

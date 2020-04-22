@@ -1,798 +1,755 @@
 package squid.engine.graphics.gl;
 
-public interface GL30 extends GL20 {
-    int GL_READ_BUFFER = 0x0C02;
-    int GL_UNPACK_ROW_LENGTH = 0x0CF2;
-    int GL_UNPACK_SKIP_ROWS = 0x0CF3;
-    int GL_UNPACK_SKIP_PIXELS = 0x0CF4;
-    int GL_PACK_ROW_LENGTH = 0x0D02;
-    int GL_PACK_SKIP_ROWS = 0x0D03;
-    int GL_PACK_SKIP_PIXELS = 0x0D04;
-    int GL_COLOR = 0x1800;
-    int GL_DEPTH = 0x1801;
-    int GL_STENCIL = 0x1802;
-    int GL_RED = 0x1903;
-    int GL_RGB8 = 0x8051;
-    int GL_RGBA8 = 0x8058;
-    int GL_RGB10_A2 = 0x8059;
-    int GL_TEXTURE_BINDING_3D = 0x806A;
-    int GL_UNPACK_SKIP_IMAGES = 0x806D;
-    int GL_UNPACK_IMAGE_HEIGHT = 0x806E;
-    int GL_TEXTURE_3D = 0x806F;
-    int GL_TEXTURE_WRAP_R = 0x8072;
-    int GL_MAX_3D_TEXTURE_SIZE = 0x8073;
-    int GL_UNSIGNED_INT_2_10_10_10_REV = 0x8368;
-    int GL_MAX_ELEMENTS_VERTICES = 0x80E8;
-    int GL_MAX_ELEMENTS_INDICES = 0x80E9;
-    int GL_TEXTURE_MIN_LOD = 0x813A;
-    int GL_TEXTURE_MAX_LOD = 0x813B;
-    int GL_TEXTURE_BASE_LEVEL = 0x813C;
-    int GL_TEXTURE_MAX_LEVEL = 0x813D;
-    int GL_MIN = 0x8007;
-    int GL_MAX = 0x8008;
-    int GL_DEPTH_COMPONENT24 = 0x81A6;
-    int GL_MAX_TEXTURE_LOD_BIAS = 0x84FD;
-    int GL_TEXTURE_COMPARE_MODE = 0x884C;
-    int GL_TEXTURE_COMPARE_FUNC = 0x884D;
-    int GL_CURRENT_QUERY = 0x8865;
-    int GL_QUERY_RESULT = 0x8866;
-    int GL_QUERY_RESULT_AVAILABLE = 0x8867;
-    int GL_BUFFER_MAPPED = 0x88BC;
-    int GL_BUFFER_MAP_POINTER = 0x88BD;
-    int GL_STREAM_READ = 0x88E1;
-    int GL_STREAM_COPY = 0x88E2;
-    int GL_STATIC_READ = 0x88E5;
-    int GL_STATIC_COPY = 0x88E6;
-    int GL_DYNAMIC_READ = 0x88E9;
-    int GL_DYNAMIC_COPY = 0x88EA;
-    int GL_MAX_DRAW_BUFFERS = 0x8824;
-    int GL_DRAW_BUFFER0 = 0x8825;
-    int GL_DRAW_BUFFER1 = 0x8826;
-    int GL_DRAW_BUFFER2 = 0x8827;
-    int GL_DRAW_BUFFER3 = 0x8828;
-    int GL_DRAW_BUFFER4 = 0x8829;
-    int GL_DRAW_BUFFER5 = 0x882A;
-    int GL_DRAW_BUFFER6 = 0x882B;
-    int GL_DRAW_BUFFER7 = 0x882C;
-    int GL_DRAW_BUFFER8 = 0x882D;
-    int GL_DRAW_BUFFER9 = 0x882E;
-    int GL_DRAW_BUFFER10 = 0x882F;
-    int GL_DRAW_BUFFER11 = 0x8830;
-    int GL_DRAW_BUFFER12 = 0x8831;
-    int GL_DRAW_BUFFER13 = 0x8832;
-    int GL_DRAW_BUFFER14 = 0x8833;
-    int GL_DRAW_BUFFER15 = 0x8834;
-    int GL_MAX_FRAGMENT_UNIFORM_COMPONENTS = 0x8B49;
-    int GL_MAX_VERTEX_UNIFORM_COMPONENTS = 0x8B4A;
-    int GL_SAMPLER_3D = 0x8B5F;
-    int GL_SAMPLER_2D_SHADOW = 0x8B62;
-    int GL_FRAGMENT_SHADER_DERIVATIVE_HINT = 0x8B8B;
-    int GL_PIXEL_PACK_BUFFER = 0x88EB;
-    int GL_PIXEL_UNPACK_BUFFER = 0x88EC;
-    int GL_PIXEL_PACK_BUFFER_BINDING = 0x88ED;
-    int GL_PIXEL_UNPACK_BUFFER_BINDING = 0x88EF;
-    int GL_FLOAT_MAT2x3 = 0x8B65;
-    int GL_FLOAT_MAT2x4 = 0x8B66;
-    int GL_FLOAT_MAT3x2 = 0x8B67;
-    int GL_FLOAT_MAT3x4 = 0x8B68;
-    int GL_FLOAT_MAT4x2 = 0x8B69;
-    int GL_FLOAT_MAT4x3 = 0x8B6A;
-    int GL_SRGB = 0x8C40;
-    int GL_SRGB8 = 0x8C41;
-    int GL_SRGB8_ALPHA8 = 0x8C43;
-    int GL_COMPARE_REF_TO_TEXTURE = 0x884E;
-    int GL_MAJOR_VERSION = 0x821B;
-    int GL_MINOR_VERSION = 0x821C;
-    int GL_NUM_EXTENSIONS = 0x821D;
-    int GL_RGBA32F = 0x8814;
-    int GL_RGB32F = 0x8815;
-    int GL_RGBA16F = 0x881A;
-    int GL_RGB16F = 0x881B;
-    int GL_VERTEX_ATTRIB_ARRAY_INTEGER = 0x88FD;
-    int GL_MAX_ARRAY_TEXTURE_LAYERS = 0x88FF;
-    int GL_MIN_PROGRAM_TEXEL_OFFSET = 0x8904;
-    int GL_MAX_PROGRAM_TEXEL_OFFSET = 0x8905;
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
+import java.nio.ShortBuffer;
+
+public interface GL30 {
+    /** GetTarget */
+    int
+        GL_MAJOR_VERSION                       = 0x821B;
+    int GL_MINOR_VERSION                       = 0x821C;
+    int GL_NUM_EXTENSIONS                      = 0x821D;
+    int GL_CONTEXT_FLAGS                       = 0x821E;
+    int GL_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT = 0x1;
+    /** Renamed tokens. */
+    int
+        GL_COMPARE_REF_TO_TEXTURE = 0x884E;
+    int GL_CLIP_DISTANCE0         = 0x3000;
+    int GL_CLIP_DISTANCE1         = 0x3001;
+    int GL_CLIP_DISTANCE2         = 0x3002;
+    int GL_CLIP_DISTANCE3         = 0x3003;
+    int GL_CLIP_DISTANCE4         = 0x3004;
+    int GL_CLIP_DISTANCE5         = 0x3005;
+    int GL_CLIP_DISTANCE6         = 0x3006;
+    int GL_CLIP_DISTANCE7         = 0x3007;
+    int GL_MAX_CLIP_DISTANCES     = 0xD32;
     int GL_MAX_VARYING_COMPONENTS = 0x8B4B;
-    int GL_TEXTURE_2D_ARRAY = 0x8C1A;
-    int GL_TEXTURE_BINDING_2D_ARRAY = 0x8C1D;
-    int GL_R11F_G11F_B10F = 0x8C3A;
-    int GL_UNSIGNED_INT_10F_11F_11F_REV = 0x8C3B;
-    int GL_RGB9_E5 = 0x8C3D;
-    int GL_UNSIGNED_INT_5_9_9_9_REV = 0x8C3E;
-    int GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH = 0x8C76;
-    int GL_TRANSFORM_FEEDBACK_BUFFER_MODE = 0x8C7F;
-    int GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS = 0x8C80;
-    int GL_TRANSFORM_FEEDBACK_VARYINGS = 0x8C83;
-    int GL_TRANSFORM_FEEDBACK_BUFFER_START = 0x8C84;
-    int GL_TRANSFORM_FEEDBACK_BUFFER_SIZE = 0x8C85;
-    int GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN = 0x8C88;
-    int GL_RASTERIZER_DISCARD = 0x8C89;
-    int GL_MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS = 0x8C8A;
-    int GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS = 0x8C8B;
-    int GL_INTERLEAVED_ATTRIBS = 0x8C8C;
-    int GL_SEPARATE_ATTRIBS = 0x8C8D;
-    int GL_TRANSFORM_FEEDBACK_BUFFER = 0x8C8E;
-    int GL_TRANSFORM_FEEDBACK_BUFFER_BINDING = 0x8C8F;
-    int GL_RGBA32UI = 0x8D70;
-    int GL_RGB32UI = 0x8D71;
-    int GL_RGBA16UI = 0x8D76;
-    int GL_RGB16UI = 0x8D77;
-    int GL_RGBA8UI = 0x8D7C;
-    int GL_RGB8UI = 0x8D7D;
-    int GL_RGBA32I = 0x8D82;
-    int GL_RGB32I = 0x8D83;
-    int GL_RGBA16I = 0x8D88;
-    int GL_RGB16I = 0x8D89;
-    int GL_RGBA8I = 0x8D8E;
-    int GL_RGB8I = 0x8D8F;
-    int GL_RED_INTEGER = 0x8D94;
-    int GL_RGB_INTEGER = 0x8D98;
-    int GL_RGBA_INTEGER = 0x8D99;
-    int GL_SAMPLER_2D_ARRAY = 0x8DC1;
-    int GL_SAMPLER_2D_ARRAY_SHADOW = 0x8DC4;
-    int GL_SAMPLER_CUBE_SHADOW = 0x8DC5;
-    int GL_UNSIGNED_INT_VEC2 = 0x8DC6;
-    int GL_UNSIGNED_INT_VEC3 = 0x8DC7;
-    int GL_UNSIGNED_INT_VEC4 = 0x8DC8;
-    int GL_INT_SAMPLER_2D = 0x8DCA;
-    int GL_INT_SAMPLER_3D = 0x8DCB;
-    int GL_INT_SAMPLER_CUBE = 0x8DCC;
-    int GL_INT_SAMPLER_2D_ARRAY = 0x8DCF;
-    int GL_UNSIGNED_INT_SAMPLER_2D = 0x8DD2;
-    int GL_UNSIGNED_INT_SAMPLER_3D = 0x8DD3;
-    int GL_UNSIGNED_INT_SAMPLER_CUBE = 0x8DD4;
+    /** Accepted by the {@code pname} parameters of GetVertexAttribdv, GetVertexAttribfv, GetVertexAttribiv, GetVertexAttribIuiv and GetVertexAttribIiv. */
+    int GL_VERTEX_ATTRIB_ARRAY_INTEGER = 0x88FD;
+    /** Returned by the {@code type} parameter of GetActiveUniform. */
+    int
+        GL_SAMPLER_1D_ARRAY              = 0x8DC0;
+    int GL_SAMPLER_2D_ARRAY              = 0x8DC1;
+    int GL_SAMPLER_1D_ARRAY_SHADOW       = 0x8DC3;
+    int GL_SAMPLER_2D_ARRAY_SHADOW       = 0x8DC4;
+    int GL_SAMPLER_CUBE_SHADOW           = 0x8DC5;
+    int GL_UNSIGNED_INT_VEC2             = 0x8DC6;
+    int GL_UNSIGNED_INT_VEC3             = 0x8DC7;
+    int GL_UNSIGNED_INT_VEC4             = 0x8DC8;
+    int GL_INT_SAMPLER_1D                = 0x8DC9;
+    int GL_INT_SAMPLER_2D                = 0x8DCA;
+    int GL_INT_SAMPLER_3D                = 0x8DCB;
+    int GL_INT_SAMPLER_CUBE              = 0x8DCC;
+    int GL_INT_SAMPLER_1D_ARRAY          = 0x8DCE;
+    int GL_INT_SAMPLER_2D_ARRAY          = 0x8DCF;
+    int GL_UNSIGNED_INT_SAMPLER_1D       = 0x8DD1;
+    int GL_UNSIGNED_INT_SAMPLER_2D       = 0x8DD2;
+    int GL_UNSIGNED_INT_SAMPLER_3D       = 0x8DD3;
+    int GL_UNSIGNED_INT_SAMPLER_CUBE     = 0x8DD4;
+    int GL_UNSIGNED_INT_SAMPLER_1D_ARRAY = 0x8DD6;
     int GL_UNSIGNED_INT_SAMPLER_2D_ARRAY = 0x8DD7;
-    int GL_BUFFER_ACCESS_FLAGS = 0x911F;
-    int GL_BUFFER_MAP_LENGTH = 0x9120;
-    int GL_BUFFER_MAP_OFFSET = 0x9121;
-    int GL_DEPTH_COMPONENT32F = 0x8CAC;
-    int GL_DEPTH32F_STENCIL8 = 0x8CAD;
+    /** Accepted by the {@code pname} parameter of GetBooleanv, GetIntegerv, GetFloatv, and GetDoublev. */
+    int
+        GL_MIN_PROGRAM_TEXEL_OFFSET = 0x8904;
+    int GL_MAX_PROGRAM_TEXEL_OFFSET = 0x8905;
+    /** Accepted by the {@code mode} parameter of BeginConditionalRender. */
+    int
+        GL_QUERY_WAIT              = 0x8E13;
+    int GL_QUERY_NO_WAIT           = 0x8E14;
+    int GL_QUERY_BY_REGION_WAIT    = 0x8E15;
+    int GL_QUERY_BY_REGION_NO_WAIT = 0x8E16;
+    /** Accepted by the {@code access} parameter of MapBufferRange. */
+    int
+        GL_MAP_READ_BIT              = 0x1;
+    int GL_MAP_WRITE_BIT             = 0x2;
+    int GL_MAP_INVALIDATE_RANGE_BIT  = 0x4;
+    int GL_MAP_INVALIDATE_BUFFER_BIT = 0x8;
+    int GL_MAP_FLUSH_EXPLICIT_BIT    = 0x10;
+    int GL_MAP_UNSYNCHRONIZED_BIT    = 0x20;
+    /** Accepted by the {@code pname} parameter of GetBufferParameteriv. */
+    int
+        GL_BUFFER_ACCESS_FLAGS = 0x911F;
+    int GL_BUFFER_MAP_LENGTH   = 0x9120;
+    int GL_BUFFER_MAP_OFFSET   = 0x9121;
+    /** Accepted by the {@code target} parameter of ClampColor and the {@code pname} parameter of GetBooleanv, GetIntegerv, GetFloatv, and GetDoublev. */
+    int GL_CLAMP_READ_COLOR = 0x891C;
+    /** Accepted by the {@code clamp} parameter of ClampColor. */
+    int GL_FIXED_ONLY = 0x891D;
+    /**
+     * Accepted by the {@code internalformat} parameter of TexImage1D, TexImage2D, TexImage3D, CopyTexImage1D, CopyTexImage2D, and RenderbufferStorage, and
+     * returned in the {@code data} parameter of GetTexLevelParameter and GetRenderbufferParameteriv.
+     */
+    int
+        GL_DEPTH_COMPONENT32F = 0x8CAC;
+    int GL_DEPTH32F_STENCIL8  = 0x8CAD;
+    /**
+     * Accepted by the {@code type} parameter of DrawPixels, ReadPixels, TexImage1D, TexImage2D, TexImage3D, TexSubImage1D, TexSubImage2D, TexSubImage3D, and
+     * GetTexImage.
+     */
     int GL_FLOAT_32_UNSIGNED_INT_24_8_REV = 0x8DAD;
-    int GL_FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING = 0x8210;
-    int GL_FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE = 0x8211;
-    int GL_FRAMEBUFFER_ATTACHMENT_RED_SIZE = 0x8212;
-    int GL_FRAMEBUFFER_ATTACHMENT_GREEN_SIZE = 0x8213;
-    int GL_FRAMEBUFFER_ATTACHMENT_BLUE_SIZE = 0x8214;
-    int GL_FRAMEBUFFER_ATTACHMENT_ALPHA_SIZE = 0x8215;
-    int GL_FRAMEBUFFER_ATTACHMENT_DEPTH_SIZE = 0x8216;
-    int GL_FRAMEBUFFER_ATTACHMENT_STENCIL_SIZE = 0x8217;
-    int GL_FRAMEBUFFER_DEFAULT = 0x8218;
-    int GL_FRAMEBUFFER_UNDEFINED = 0x8219;
-    int GL_DEPTH_STENCIL_ATTACHMENT = 0x821A;
-    int GL_DEPTH_STENCIL = 0x84F9;
-    int GL_UNSIGNED_INT_24_8 = 0x84FA;
-    int GL_DEPTH24_STENCIL8 = 0x88F0;
+    /** Accepted by the {@code value} parameter of GetTexLevelParameter. */
+    int
+        GL_TEXTURE_RED_TYPE   = 0x8C10;
+    int GL_TEXTURE_GREEN_TYPE = 0x8C11;
+    int GL_TEXTURE_BLUE_TYPE  = 0x8C12;
+    int GL_TEXTURE_ALPHA_TYPE = 0x8C13;
+    int GL_TEXTURE_DEPTH_TYPE = 0x8C16;
+    /** Returned by the {@code params} parameter of GetTexLevelParameter. */
     int GL_UNSIGNED_NORMALIZED = 0x8C17;
+    /** Accepted by the {@code internalFormat} parameter of TexImage1D, TexImage2D, and TexImage3D. */
+    int
+        GL_RGBA32F = 0x8814;
+    int GL_RGB32F  = 0x8815;
+    int GL_RGBA16F = 0x881A;
+    int GL_RGB16F  = 0x881B;
+    /** Accepted by the {@code internalformat} parameter of TexImage1D, TexImage2D, TexImage3D, CopyTexImage1D, CopyTexImage2D, and RenderbufferStorage. */
+    int GL_R11F_G11F_B10F = 0x8C3A;
+    /**
+     * Accepted by the {@code type} parameter of DrawPixels, ReadPixels, TexImage1D, TexImage2D, GetTexImage, TexImage3D, TexSubImage1D, TexSubImage2D,
+     * TexSubImage3D, GetHistogram, GetMinmax, ConvolutionFilter1D, ConvolutionFilter2D, ConvolutionFilter3D, GetConvolutionFilter, SeparableFilter2D,
+     * GetSeparableFilter, ColorTable, ColorSubTable, and GetColorTable.
+     */
+    int GL_UNSIGNED_INT_10F_11F_11F_REV = 0x8C3B;
+    /** Accepted by the {@code internalformat} parameter of TexImage1D, TexImage2D, TexImage3D, CopyTexImage1D, CopyTexImage2D, and RenderbufferStorage. */
+    int GL_RGB9_E5 = 0x8C3D;
+    /**
+     * Accepted by the {@code type} parameter of DrawPixels, ReadPixels, TexImage1D, TexImage2D, GetTexImage, TexImage3D, TexSubImage1D, TexSubImage2D,
+     * TexSubImage3D, GetHistogram, GetMinmax, ConvolutionFilter1D, ConvolutionFilter2D, ConvolutionFilter3D, GetConvolutionFilter, SeparableFilter2D,
+     * GetSeparableFilter, ColorTable, ColorSubTable, and GetColorTable.
+     */
+    int GL_UNSIGNED_INT_5_9_9_9_REV = 0x8C3E;
+    /** Accepted by the {@code pname} parameter of GetTexLevelParameterfv and GetTexLevelParameteriv. */
+    int GL_TEXTURE_SHARED_SIZE = 0x8C3F;
+    /**
+     * Accepted by the {@code target} parameter of BindFramebuffer, CheckFramebufferStatus, FramebufferTexture{1D|2D|3D}, FramebufferRenderbuffer, and
+     * GetFramebufferAttachmentParameteriv.
+     */
+    int
+        GL_FRAMEBUFFER      = 0x8D40;
     int GL_READ_FRAMEBUFFER = 0x8CA8;
     int GL_DRAW_FRAMEBUFFER = 0x8CA9;
-    int GL_READ_FRAMEBUFFER_BINDING = 0x8CAA;
-    int GL_DRAW_FRAMEBUFFER_BINDING = GL_READ_FRAMEBUFFER_BINDING;
-    int GL_RENDERBUFFER_SAMPLES = 0x8CAB;
-    int GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER = 0x8CD4;
-    int GL_MAX_COLOR_ATTACHMENTS = 0x8CDF;
-    int GL_COLOR_ATTACHMENT1 = 0x8CE1;
-    int GL_COLOR_ATTACHMENT2 = 0x8CE2;
-    int GL_COLOR_ATTACHMENT3 = 0x8CE3;
-    int GL_COLOR_ATTACHMENT4 = 0x8CE4;
-    int GL_COLOR_ATTACHMENT5 = 0x8CE5;
-    int GL_COLOR_ATTACHMENT6 = 0x8CE6;
-    int GL_COLOR_ATTACHMENT7 = 0x8CE7;
-    int GL_COLOR_ATTACHMENT8 = 0x8CE8;
-    int GL_COLOR_ATTACHMENT9 = 0x8CE9;
-    int GL_COLOR_ATTACHMENT10 = 0x8CEA;
-    int GL_COLOR_ATTACHMENT11 = 0x8CEB;
-    int GL_COLOR_ATTACHMENT12 = 0x8CEC;
-    int GL_COLOR_ATTACHMENT13 = 0x8CED;
-    int GL_COLOR_ATTACHMENT14 = 0x8CEE;
-    int GL_COLOR_ATTACHMENT15 = 0x8CEF;
-    int GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE = 0x8D56;
+    /**
+     * Accepted by the {@code target} parameter of BindRenderbuffer, RenderbufferStorage, and GetRenderbufferParameteriv, and returned by
+     * GetFramebufferAttachmentParameteriv.
+     */
+    int GL_RENDERBUFFER = 0x8D41;
+    /** Accepted by the {@code internalformat} parameter of RenderbufferStorage. */
+    int
+        GL_STENCIL_INDEX1  = 0x8D46;
+    int GL_STENCIL_INDEX4  = 0x8D47;
+    int GL_STENCIL_INDEX8  = 0x8D48;
+    int GL_STENCIL_INDEX16 = 0x8D49;
+    /** Accepted by the {@code pname} parameter of GetRenderbufferParameteriv. */
+    int
+        GL_RENDERBUFFER_WIDTH           = 0x8D42;
+    int GL_RENDERBUFFER_HEIGHT          = 0x8D43;
+    int GL_RENDERBUFFER_INTERNAL_FORMAT = 0x8D44;
+    int GL_RENDERBUFFER_RED_SIZE        = 0x8D50;
+    int GL_RENDERBUFFER_GREEN_SIZE      = 0x8D51;
+    int GL_RENDERBUFFER_BLUE_SIZE       = 0x8D52;
+    int GL_RENDERBUFFER_ALPHA_SIZE      = 0x8D53;
+    int GL_RENDERBUFFER_DEPTH_SIZE      = 0x8D54;
+    int GL_RENDERBUFFER_STENCIL_SIZE    = 0x8D55;
+    int GL_RENDERBUFFER_SAMPLES         = 0x8CAB;
+    /** Accepted by the {@code pname} parameter of GetFramebufferAttachmentParameteriv. */
+    int
+        GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE           = 0x8CD0;
+    int GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME           = 0x8CD1;
+    int GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL         = 0x8CD2;
+    int GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE = 0x8CD3;
+    int GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER         = 0x8CD4;
+    int GL_FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING        = 0x8210;
+    int GL_FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE        = 0x8211;
+    int GL_FRAMEBUFFER_ATTACHMENT_RED_SIZE              = 0x8212;
+    int GL_FRAMEBUFFER_ATTACHMENT_GREEN_SIZE            = 0x8213;
+    int GL_FRAMEBUFFER_ATTACHMENT_BLUE_SIZE             = 0x8214;
+    int GL_FRAMEBUFFER_ATTACHMENT_ALPHA_SIZE            = 0x8215;
+    int GL_FRAMEBUFFER_ATTACHMENT_DEPTH_SIZE            = 0x8216;
+    int GL_FRAMEBUFFER_ATTACHMENT_STENCIL_SIZE          = 0x8217;
+    /** Returned in {@code params} by GetFramebufferAttachmentParameteriv. */
+    int GL_FRAMEBUFFER_DEFAULT = 0x8218;
+    /** Accepted by the {@code attachment} parameter of FramebufferTexture{1D|2D|3D}, FramebufferRenderbuffer, and GetFramebufferAttachmentParameteriv. */
+    int
+        GL_COLOR_ATTACHMENT0        = 0x8CE0;
+    int GL_COLOR_ATTACHMENT1        = 0x8CE1;
+    int GL_COLOR_ATTACHMENT2        = 0x8CE2;
+    int GL_COLOR_ATTACHMENT3        = 0x8CE3;
+    int GL_COLOR_ATTACHMENT4        = 0x8CE4;
+    int GL_COLOR_ATTACHMENT5        = 0x8CE5;
+    int GL_COLOR_ATTACHMENT6        = 0x8CE6;
+    int GL_COLOR_ATTACHMENT7        = 0x8CE7;
+    int GL_COLOR_ATTACHMENT8        = 0x8CE8;
+    int GL_COLOR_ATTACHMENT9        = 0x8CE9;
+    int GL_COLOR_ATTACHMENT10       = 0x8CEA;
+    int GL_COLOR_ATTACHMENT11       = 0x8CEB;
+    int GL_COLOR_ATTACHMENT12       = 0x8CEC;
+    int GL_COLOR_ATTACHMENT13       = 0x8CED;
+    int GL_COLOR_ATTACHMENT14       = 0x8CEE;
+    int GL_COLOR_ATTACHMENT15       = 0x8CEF;
+    int GL_COLOR_ATTACHMENT16       = 0x8CF0;
+    int GL_COLOR_ATTACHMENT17       = 0x8CF1;
+    int GL_COLOR_ATTACHMENT18       = 0x8CF2;
+    int GL_COLOR_ATTACHMENT19       = 0x8CF3;
+    int GL_COLOR_ATTACHMENT20       = 0x8CF4;
+    int GL_COLOR_ATTACHMENT21       = 0x8CF5;
+    int GL_COLOR_ATTACHMENT22       = 0x8CF6;
+    int GL_COLOR_ATTACHMENT23       = 0x8CF7;
+    int GL_COLOR_ATTACHMENT24       = 0x8CF8;
+    int GL_COLOR_ATTACHMENT25       = 0x8CF9;
+    int GL_COLOR_ATTACHMENT26       = 0x8CFA;
+    int GL_COLOR_ATTACHMENT27       = 0x8CFB;
+    int GL_COLOR_ATTACHMENT28       = 0x8CFC;
+    int GL_COLOR_ATTACHMENT29       = 0x8CFD;
+    int GL_COLOR_ATTACHMENT30       = 0x8CFE;
+    int GL_COLOR_ATTACHMENT31       = 0x8CFF;
+    int GL_DEPTH_ATTACHMENT         = 0x8D00;
+    int GL_STENCIL_ATTACHMENT       = 0x8D20;
+    int GL_DEPTH_STENCIL_ATTACHMENT = 0x821A;
+    /** Accepted by the {@code pname} parameter of GetBooleanv, GetIntegerv, GetFloatv, and GetDoublev. */
     int GL_MAX_SAMPLES = 0x8D57;
+    /** Returned by CheckFramebufferStatus(). */
+    int
+        GL_FRAMEBUFFER_COMPLETE                      = 0x8CD5;
+    int GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT         = 0x8CD6;
+    int GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT = 0x8CD7;
+    int GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER        = 0x8CDB;
+    int GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER        = 0x8CDC;
+    int GL_FRAMEBUFFER_UNSUPPORTED                   = 0x8CDD;
+    int GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE        = 0x8D56;
+    int GL_FRAMEBUFFER_UNDEFINED                     = 0x8219;
+    /** Accepted by the {@code pname} parameters of GetIntegerv, GetFloatv,  and GetDoublev. */
+    int
+        GL_FRAMEBUFFER_BINDING      = 0x8CA6;
+    int GL_DRAW_FRAMEBUFFER_BINDING = 0x8CA6;
+    int GL_READ_FRAMEBUFFER_BINDING = 0x8CAA;
+    int GL_RENDERBUFFER_BINDING     = 0x8CA7;
+    int GL_MAX_COLOR_ATTACHMENTS    = 0x8CDF;
+    int GL_MAX_RENDERBUFFER_SIZE    = 0x84E8;
+    /** Returned by GetError(). */
+    int GL_INVALID_FRAMEBUFFER_OPERATION = 0x506;
+    /**
+     * Accepted by the {@code format} parameter of DrawPixels, ReadPixels, TexImage1D, TexImage2D, TexImage3D, TexSubImage1D, TexSubImage2D, TexSubImage3D, and
+     * GetTexImage, by the {@code type} parameter of CopyPixels, by the {@code internalformat} parameter of TexImage1D, TexImage2D, TexImage3D, CopyTexImage1D,
+     * CopyTexImage2D, and RenderbufferStorage, and returned in the {@code data} parameter of GetTexLevelParameter and GetRenderbufferParameteriv.
+     */
+    int GL_DEPTH_STENCIL = 0x84F9;
+    /**
+     * Accepted by the {@code type} parameter of DrawPixels, ReadPixels, TexImage1D, TexImage2D, TexImage3D, TexSubImage1D, TexSubImage2D, TexSubImage3D, and
+     * GetTexImage.
+     */
+    int GL_UNSIGNED_INT_24_8 = 0x84FA;
+    /**
+     * Accepted by the {@code internalformat} parameter of TexImage1D, TexImage2D, TexImage3D, CopyTexImage1D, CopyTexImage2D, and RenderbufferStorage, and
+     * returned in the {@code data} parameter of GetTexLevelParameter and GetRenderbufferParameteriv.
+     */
+    int GL_DEPTH24_STENCIL8 = 0x88F0;
+    /** Accepted by the {@code value} parameter of GetTexLevelParameter. */
+    int GL_TEXTURE_STENCIL_SIZE = 0x88F1;
+    /**
+     * Accepted by the {@code type} parameter of DrawPixels, ReadPixels, TexImage1D, TexImage2D, TexImage3D, GetTexImage, TexSubImage1D, TexSubImage2D,
+     * TexSubImage3D, GetHistogram, GetMinmax, ConvolutionFilter1D, ConvolutionFilter2D, GetConvolutionFilter, SeparableFilter2D, GetSeparableFilter,
+     * ColorTable, ColorSubTable, and GetColorTable.
+     *
+     * <p>Accepted by the {@code type} argument of VertexPointer, NormalPointer, ColorPointer, SecondaryColorPointer, FogCoordPointer, TexCoordPointer, and
+     * VertexAttribPointer.</p>
+     */
     int GL_HALF_FLOAT = 0x140B;
-    int GL_MAP_READ_BIT = 0x0001;
-    int GL_MAP_WRITE_BIT = 0x0002;
-    int GL_MAP_INVALIDATE_RANGE_BIT = 0x0004;
-    int GL_MAP_INVALIDATE_BUFFER_BIT = 0x0008;
-    int GL_MAP_FLUSH_EXPLICIT_BIT = 0x0010;
-    int GL_MAP_UNSYNCHRONIZED_BIT = 0x0020;
-    int GL_RG = 0x8227;
+    /** Accepted by the {@code internalFormat} parameter of TexImage1D, TexImage2D, and TexImage3D. */
+    int
+        GL_RGBA32UI = 0x8D70;
+    int GL_RGB32UI  = 0x8D71;
+    int GL_RGBA16UI = 0x8D76;
+    int GL_RGB16UI  = 0x8D77;
+    int GL_RGBA8UI  = 0x8D7C;
+    int GL_RGB8UI   = 0x8D7D;
+    int GL_RGBA32I  = 0x8D82;
+    int GL_RGB32I   = 0x8D83;
+    int GL_RGBA16I  = 0x8D88;
+    int GL_RGB16I   = 0x8D89;
+    int GL_RGBA8I   = 0x8D8E;
+    int GL_RGB8I    = 0x8D8F;
+    /** Accepted by the {@code format} parameter of TexImage1D, TexImage2D, TexImage3D, TexSubImage1D, TexSubImage2D, TexSubImage3D, DrawPixels and ReadPixels. */
+    int
+        GL_RED_INTEGER   = 0x8D94;
+    int GL_GREEN_INTEGER = 0x8D95;
+    int GL_BLUE_INTEGER  = 0x8D96;
+    int GL_RGB_INTEGER   = 0x8D98;
+    int GL_RGBA_INTEGER  = 0x8D99;
+    int GL_BGR_INTEGER   = 0x8D9A;
+    int GL_BGRA_INTEGER  = 0x8D9B;
+    /** Accepted by the {@code target} parameter of TexParameteri, TexParameteriv, TexParameterf, TexParameterfv, GenerateMipmap, and BindTexture. */
+    int
+        GL_TEXTURE_1D_ARRAY = 0x8C18;
+    int GL_TEXTURE_2D_ARRAY = 0x8C1A;
+    /** Accepted by the {@code target} parameter of TexImage3D, TexSubImage3D, CopyTexSubImage3D, CompressedTexImage3D, and CompressedTexSubImage3D. */
+    int GL_PROXY_TEXTURE_2D_ARRAY = 0x8C1B;
+    /**
+     * Accepted by the {@code target} parameter of TexImage2D, TexSubImage2D, CopyTexImage2D, CopyTexSubImage2D, CompressedTexImage2D, and
+     * CompressedTexSubImage2D.
+     */
+    int GL_PROXY_TEXTURE_1D_ARRAY = 0x8C19;
+    /** Accepted by the {@code pname} parameter of GetBooleanv, GetDoublev, GetIntegerv and GetFloatv. */
+    int
+        GL_TEXTURE_BINDING_1D_ARRAY = 0x8C1C;
+    int GL_TEXTURE_BINDING_2D_ARRAY = 0x8C1D;
+    int GL_MAX_ARRAY_TEXTURE_LAYERS = 0x88FF;
+    /**
+     * Accepted by the {@code internalformat} parameter of TexImage2D, CopyTexImage2D, and CompressedTexImage2D and the {@code format} parameter of
+     * CompressedTexSubImage2D.
+     */
+    int
+        GL_COMPRESSED_RED_RGTC1        = 0x8DBB;
+    int GL_COMPRESSED_SIGNED_RED_RGTC1 = 0x8DBC;
+    int GL_COMPRESSED_RG_RGTC2         = 0x8DBD;
+    int GL_COMPRESSED_SIGNED_RG_RGTC2  = 0x8DBE;
+    /** Accepted by the {@code internalFormat} parameter of TexImage1D, TexImage2D, TexImage3D, CopyTexImage1D, and CopyTexImage2D. */
+    int
+        GL_R8             = 0x8229;
+    int GL_R16            = 0x822A;
+    int GL_RG8            = 0x822B;
+    int GL_RG16           = 0x822C;
+    int GL_R16F           = 0x822D;
+    int GL_R32F           = 0x822E;
+    int GL_RG16F          = 0x822F;
+    int GL_RG32F          = 0x8230;
+    int GL_R8I            = 0x8231;
+    int GL_R8UI           = 0x8232;
+    int GL_R16I           = 0x8233;
+    int GL_R16UI          = 0x8234;
+    int GL_R32I           = 0x8235;
+    int GL_R32UI          = 0x8236;
+    int GL_RG8I           = 0x8237;
+    int GL_RG8UI          = 0x8238;
+    int GL_RG16I          = 0x8239;
+    int GL_RG16UI         = 0x823A;
+    int GL_RG32I          = 0x823B;
+    int GL_RG32UI         = 0x823C;
+    int GL_RG             = 0x8227;
+    int GL_COMPRESSED_RED = 0x8225;
+    int GL_COMPRESSED_RG  = 0x8226;
+    /** Accepted by the {@code format} parameter of TexImage3D, TexImage2D, TexImage3D, TexSubImage1D, TexSubImage2D, TexSubImage3D, and ReadPixels. */
     int GL_RG_INTEGER = 0x8228;
-    int GL_R8 = 0x8229;
-    int GL_RG8 = 0x822B;
-    int GL_R16F = 0x822D;
-    int GL_R32F = 0x822E;
-    int GL_RG16F = 0x822F;
-    int GL_RG32F = 0x8230;
-    int GL_R8I = 0x8231;
-    int GL_R8UI = 0x8232;
-    int GL_R16I = 0x8233;
-    int GL_R16UI = 0x8234;
-    int GL_R32I = 0x8235;
-    int GL_R32UI = 0x8236;
-    int GL_RG8I = 0x8237;
-    int GL_RG8UI = 0x8238;
-    int GL_RG16I = 0x8239;
-    int GL_RG16UI = 0x823A;
-    int GL_RG32I = 0x823B;
-    int GL_RG32UI = 0x823C;
+    /**
+     * Accepted by the {@code target} parameters of BindBuffer, BufferData, BufferSubData, MapBuffer, UnmapBuffer, GetBufferSubData, GetBufferPointerv,
+     * BindBufferRange, BindBufferOffset and BindBufferBase.
+     */
+    int GL_TRANSFORM_FEEDBACK_BUFFER = 0x8C8E;
+    /** Accepted by the {@code param} parameter of GetIntegeri_v and GetBooleani_v. */
+    int
+        GL_TRANSFORM_FEEDBACK_BUFFER_START = 0x8C84;
+    int GL_TRANSFORM_FEEDBACK_BUFFER_SIZE  = 0x8C85;
+    /**
+     * Accepted by the {@code param} parameter of GetIntegeri_v and GetBooleani_v, and by the {@code pname} parameter of GetBooleanv,
+     * GetDoublev, GetIntegerv, and GetFloatv.
+     */
+    int GL_TRANSFORM_FEEDBACK_BUFFER_BINDING = 0x8C8F;
+    /** Accepted by the {@code bufferMode} parameter of TransformFeedbackVaryings. */
+    int
+        GL_INTERLEAVED_ATTRIBS = 0x8C8C;
+    int GL_SEPARATE_ATTRIBS    = 0x8C8D;
+    /** Accepted by the {@code target} parameter of BeginQuery, EndQuery, and GetQueryiv. */
+    int
+        GL_PRIMITIVES_GENERATED                  = 0x8C87;
+    int GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN = 0x8C88;
+    /**
+     * Accepted by the {@code cap} parameter of Enable, Disable, and IsEnabled, and by the {@code pname} parameter of GetBooleanv, GetIntegerv, GetFloatv, and
+     * GetDoublev.
+     */
+    int GL_RASTERIZER_DISCARD = 0x8C89;
+    /** Accepted by the {@code pname} parameter of GetBooleanv, GetDoublev, GetIntegerv, and GetFloatv. */
+    int
+        GL_MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS = 0x8C8A;
+    int GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS       = 0x8C8B;
+    int GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS    = 0x8C80;
+    /** Accepted by the {@code pname} parameter of GetProgramiv. */
+    int
+        GL_TRANSFORM_FEEDBACK_VARYINGS           = 0x8C83;
+    int GL_TRANSFORM_FEEDBACK_BUFFER_MODE        = 0x8C7F;
+    int GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH = 0x8C76;
+    /** Accepted by the {@code pname} parameter of GetBooleanv, GetIntegerv, GetFloatv, and GetDoublev. */
     int GL_VERTEX_ARRAY_BINDING = 0x85B5;
-    int GL_R8_SNORM = 0x8F94;
-    int GL_RG8_SNORM = 0x8F95;
-    int GL_RGB8_SNORM = 0x8F96;
-    int GL_RGBA8_SNORM = 0x8F97;
-    int GL_SIGNED_NORMALIZED = 0x8F9C;
-    int GL_PRIMITIVE_RESTART_FIXED_INDEX = 0x8D69;
-    int GL_COPY_READ_BUFFER = 0x8F36;
-    int GL_COPY_WRITE_BUFFER = 0x8F37;
-    int GL_COPY_READ_BUFFER_BINDING = GL_COPY_READ_BUFFER;
-    int GL_COPY_WRITE_BUFFER_BINDING = GL_COPY_WRITE_BUFFER;
-    int GL_UNIFORM_BUFFER = 0x8A11;
-    int GL_UNIFORM_BUFFER_BINDING = 0x8A28;
-    int GL_UNIFORM_BUFFER_START = 0x8A29;
-    int GL_UNIFORM_BUFFER_SIZE = 0x8A2A;
-    int GL_MAX_VERTEX_UNIFORM_BLOCKS = 0x8A2B;
-    int GL_MAX_FRAGMENT_UNIFORM_BLOCKS = 0x8A2D;
-    int GL_MAX_COMBINED_UNIFORM_BLOCKS = 0x8A2E;
-    int GL_MAX_UNIFORM_BUFFER_BINDINGS = 0x8A2F;
-    int GL_MAX_UNIFORM_BLOCK_SIZE = 0x8A30;
-    int GL_MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS = 0x8A31;
-    int GL_MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS = 0x8A33;
-    int GL_UNIFORM_BUFFER_OFFSET_ALIGNMENT = 0x8A34;
-    int GL_ACTIVE_UNIFORM_BLOCK_MAX_NAME_LENGTH = 0x8A35;
-    int GL_ACTIVE_UNIFORM_BLOCKS = 0x8A36;
-    int GL_UNIFORM_TYPE = 0x8A37;
-    int GL_UNIFORM_SIZE = 0x8A38;
-    int GL_UNIFORM_NAME_LENGTH = 0x8A39;
-    int GL_UNIFORM_BLOCK_INDEX = 0x8A3A;
-    int GL_UNIFORM_OFFSET = 0x8A3B;
-    int GL_UNIFORM_ARRAY_STRIDE = 0x8A3C;
-    int GL_UNIFORM_MATRIX_STRIDE = 0x8A3D;
-    int GL_UNIFORM_IS_ROW_MAJOR = 0x8A3E;
-    int GL_UNIFORM_BLOCK_BINDING = 0x8A3F;
-    int GL_UNIFORM_BLOCK_DATA_SIZE = 0x8A40;
-    int GL_UNIFORM_BLOCK_NAME_LENGTH = 0x8A41;
-    int GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS = 0x8A42;
-    int GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES = 0x8A43;
-    int GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER = 0x8A44;
-    int GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER = 0x8A46;
-    // GL_INVALID_INDEX is defined as 0xFFFFFFFFu in C.
-    int GL_INVALID_INDEX = -1;
-    int GL_MAX_VERTEX_OUTPUT_COMPONENTS = 0x9122;
-    int GL_MAX_FRAGMENT_INPUT_COMPONENTS = 0x9125;
-    int GL_MAX_SERVER_WAIT_TIMEOUT = 0x9111;
-    int GL_OBJECT_TYPE = 0x9112;
-    int GL_SYNC_CONDITION = 0x9113;
-    int GL_SYNC_STATUS = 0x9114;
-    int GL_SYNC_FLAGS = 0x9115;
-    int GL_SYNC_FENCE = 0x9116;
-    int GL_SYNC_GPU_COMMANDS_COMPLETE = 0x9117;
-    int GL_UNSIGNALED = 0x9118;
-    int GL_SIGNALED = 0x9119;
-    int GL_ALREADY_SIGNALED = 0x911A;
-    int GL_TIMEOUT_EXPIRED = 0x911B;
-    int GL_CONDITION_SATISFIED = 0x911C;
-    int GL_WAIT_FAILED = 0x911D;
-    int GL_SYNC_FLUSH_COMMANDS_BIT = 0x00000001;
-    // GL_TIMEOUT_IGNORED is defined as 0xFFFFFFFFFFFFFFFFull in C.
-    long GL_TIMEOUT_IGNORED = -1;
-    int GL_VERTEX_ATTRIB_ARRAY_DIVISOR = 0x88FE;
-    int GL_ANY_SAMPLES_PASSED = 0x8C2F;
-    int GL_ANY_SAMPLES_PASSED_CONSERVATIVE = 0x8D6A;
-    int GL_SAMPLER_BINDING = 0x8919;
-    int GL_RGB10_A2UI = 0x906F;
-    int GL_TEXTURE_SWIZZLE_R = 0x8E42;
-    int GL_TEXTURE_SWIZZLE_G = 0x8E43;
-    int GL_TEXTURE_SWIZZLE_B = 0x8E44;
-    int GL_TEXTURE_SWIZZLE_A = 0x8E45;
-    int GL_GREEN = 0x1904;
-    int GL_BLUE = 0x1905;
-    int GL_INT_2_10_10_10_REV = 0x8D9F;
-    int GL_TRANSFORM_FEEDBACK = 0x8E22;
-    int GL_TRANSFORM_FEEDBACK_PAUSED = 0x8E23;
-    int GL_TRANSFORM_FEEDBACK_ACTIVE = 0x8E24;
-    int GL_TRANSFORM_FEEDBACK_BINDING = 0x8E25;
-    int GL_PROGRAM_BINARY_RETRIEVABLE_HINT = 0x8257;
-    int GL_PROGRAM_BINARY_LENGTH = 0x8741;
-    int GL_NUM_PROGRAM_BINARY_FORMATS = 0x87FE;
-    int GL_PROGRAM_BINARY_FORMATS = 0x87FF;
-    int GL_COMPRESSED_R11_EAC = 0x9270;
-    int GL_COMPRESSED_SIGNED_R11_EAC = 0x9271;
-    int GL_COMPRESSED_RG11_EAC = 0x9272;
-    int GL_COMPRESSED_SIGNED_RG11_EAC = 0x9273;
-    int GL_COMPRESSED_RGB8_ETC2 = 0x9274;
-    int GL_COMPRESSED_SRGB8_ETC2 = 0x9275;
-    int GL_COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2 = 0x9276;
-    int GL_COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2 = 0x9277;
-    int GL_COMPRESSED_RGBA8_ETC2_EAC = 0x9278;
-    int GL_COMPRESSED_SRGB8_ALPHA8_ETC2_EAC = 0x9279;
-    int GL_TEXTURE_IMMUTABLE_FORMAT = 0x912F;
-    int GL_MAX_ELEMENT_INDEX = 0x8D6B;
-    int GL_NUM_SAMPLE_COUNTS = 0x9380;
-    int GL_TEXTURE_IMMUTABLE_LEVELS = 0x82DF;
+    /**
+     * Accepted by the {@code cap} parameter of Enable, Disable, and IsEnabled, and by the {@code pname} parameter of GetBooleanv, GetIntegerv, GetFloatv, and
+     * GetDoublev.
+     */
+    int GL_FRAMEBUFFER_SRGB = 0x8DB9;
 
-    // C function void glReadBuffer ( GLenum mode )
+    long nglGetStringi(int name, int index);
 
-    void glReadBuffer(int mode);
-
-    // C function void glDrawRangeElements ( GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, const GLvoid
-// *indices )
-
-    void glDrawRangeElements(int mode, int start, int end, int count, int type, java.nio.Buffer indices);
-
-    // C function void glDrawRangeElements ( GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, GLsizei offset )
-
-    void glDrawRangeElements(int mode, int start, int end, int count, int type, int offset);
-
-    // C function void glTexImage3D ( GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei
-// depth, GLint border, GLenum format, GLenum type, const GLvoid *pixels )
-
-    void glTexImage3D(int target, int level, int internalformat, int width, int height, int depth, int border, int format,
-                      int type, java.nio.Buffer pixels);
-
-    // C function void glTexImage3D ( GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei
-// depth, GLint border, GLenum format, GLenum type, GLsizei offset )
-
-    void glTexImage3D(int target, int level, int internalformat, int width, int height, int depth, int border, int format,
-                      int type, int offset);
-
-    // C function void glTexSubImage3D ( GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width,
-// GLsizei height, GLsizei depth, GLenum format, GLenum type, const GLvoid *pixels )
-
-    void glTexSubImage3D(int target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth,
-                         int format, int type, java.nio.Buffer pixels);
-
-    // C function void glTexSubImage3D ( GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width,
-// GLsizei height, GLsizei depth, GLenum format, GLenum type, GLsizei offset )
-
-    void glTexSubImage3D(int target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth,
-                         int format, int type, int offset);
-
-    // C function void glCopyTexSubImage3D ( GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x,
-// GLint y, GLsizei width, GLsizei height )
-
-    void glCopyTexSubImage3D(int target, int level, int xoffset, int yoffset, int zoffset, int x, int y, int width,
-                             int height);
-
-// // C function void glCompressedTexImage3D ( GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height,
-// GLsizei depth, GLint border, GLsizei imageSize, const GLvoid *data )
-//
-// public void glCompressedTexImage3D(
-// int target,
-// int level,
-// int internalformat,
-// int width,
-// int height,
-// int depth,
-// int border,
-// int imageSize,
-// java.nio.Buffer data
-// );
-//
-// // C function void glCompressedTexImage3D ( GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height,
-// GLsizei depth, GLint border, GLsizei imageSize, GLsizei offset )
-//
-// public void glCompressedTexImage3D(
-// int target,
-// int level,
-// int internalformat,
-// int width,
-// int height,
-// int depth,
-// int border,
-// int imageSize,
-// int offset
-// );
-//
-// // C function void glCompressedTexSubImage3D ( GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei
-// width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const GLvoid *data )
-//
-// public void glCompressedTexSubImage3D(
-// int target,
-// int level,
-// int xoffset,
-// int yoffset,
-// int zoffset,
-// int width,
-// int height,
-// int depth,
-// int format,
-// int imageSize,
-// java.nio.Buffer data
-// );
-//
-// // C function void glCompressedTexSubImage3D ( GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei
-// width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, GLsizei offset )
-//
-// public void glCompressedTexSubImage3D(
-// int target,
-// int level,
-// int xoffset,
-// int yoffset,
-// int zoffset,
-// int width,
-// int height,
-// int depth,
-// int format,
-// int imageSize,
-// int offset
-// );
-
-    // C function void glGenQueries ( GLsizei n, GLuint *ids )
-
-    void glGenQueries(int n, int[] ids, int offset);
-
-    // C function void glGenQueries ( GLsizei n, GLuint *ids )
-
-    void glGenQueries(int n, java.nio.IntBuffer ids);
-
-    // C function void glDeleteQueries ( GLsizei n, const GLuint *ids )
-
-    void glDeleteQueries(int n, int[] ids, int offset);
-
-    // C function void glDeleteQueries ( GLsizei n, const GLuint *ids )
-
-    void glDeleteQueries(int n, java.nio.IntBuffer ids);
-
-    // C function GLboolean glIsQuery ( GLuint id )
-
-    boolean glIsQuery(int id);
-
-    // C function void glBeginQuery ( GLenum target, GLuint id )
-
-    void glBeginQuery(int target, int id);
-
-    // C function void glEndQuery ( GLenum target )
-
-    void glEndQuery(int target);
-
-// // C function void glGetQueryiv ( GLenum target, GLenum pname, GLint *params )
-//
-// public void glGetQueryiv(
-// int target,
-// int pname,
-// int[] params,
-// int offset
-// );
-
-    // C function void glGetQueryiv ( GLenum target, GLenum pname, GLint *params )
-
-    void glGetQueryiv(int target, int pname, java.nio.IntBuffer params);
-
-// // C function void glGetQueryObjectuiv ( GLuint id, GLenum pname, GLuint *params )
-//
-// public void glGetQueryObjectuiv(
-// int id,
-// int pname,
-// int[] params,
-// int offset
-// );
-
-    // C function void glGetQueryObjectuiv ( GLuint id, GLenum pname, GLuint *params )
-
-    void glGetQueryObjectuiv(int id, int pname, java.nio.IntBuffer params);
-
-    // C function GLboolean glUnmapBuffer ( GLenum target )
-
-    boolean glUnmapBuffer(int target);
-
-    // C function void glGetBufferPointerv ( GLenum target, GLenum pname, GLvoid** params )
-
-    java.nio.Buffer glGetBufferPointerv(int target, int pname);
-
-// // C function void glDrawBuffers ( GLsizei n, const GLenum *bufs )
-//
-// public void glDrawBuffers(
-// int n,
-// int[] bufs,
-// int offset
-// );
-
-    // C function void glDrawBuffers ( GLsizei n, const GLenum *bufs )
-
-    void glDrawBuffers(int n, java.nio.IntBuffer bufs);
-
-// // C function void glUniformMatrix2x3fv ( GLint location, GLsizei count, GLboolean transpose, const GLfloat *value )
-//
-// public void glUniformMatrix2x3fv(
-// int location,
-// int count,
-// boolean transpose,
-// float[] value,
-// int offset
-// );
-
-    // C function void glUniformMatrix2x3fv ( GLint location, GLsizei count, GLboolean transpose, const GLfloat *value )
-
-    void glUniformMatrix2x3fv(int location, int count, boolean transpose, java.nio.FloatBuffer value);
-
-// // C function void glUniformMatrix3x2fv ( GLint location, GLsizei count, GLboolean transpose, const GLfloat *value )
-//
-// public void glUniformMatrix3x2fv(
-// int location,
-// int count,
-// boolean transpose,
-// float[] value,
-// int offset
-// );
-
-    // C function void glUniformMatrix3x2fv ( GLint location, GLsizei count, GLboolean transpose, const GLfloat *value )
-
-    void glUniformMatrix3x2fv(int location, int count, boolean transpose, java.nio.FloatBuffer value);
-
-// // C function void glUniformMatrix2x4fv ( GLint location, GLsizei count, GLboolean transpose, const GLfloat *value )
-//
-// public void glUniformMatrix2x4fv(
-// int location,
-// int count,
-// boolean transpose,
-// float[] value,
-// int offset
-// );
-
-    // C function void glUniformMatrix2x4fv ( GLint location, GLsizei count, GLboolean transpose, const GLfloat *value )
-
-    void glUniformMatrix2x4fv(int location, int count, boolean transpose, java.nio.FloatBuffer value);
-
-// // C function void glUniformMatrix4x2fv ( GLint location, GLsizei count, GLboolean transpose, const GLfloat *value )
-//
-// public void glUniformMatrix4x2fv(
-// int location,
-// int count,
-// boolean transpose,
-// float[] value,
-// int offset
-// );
-
-    // C function void glUniformMatrix4x2fv ( GLint location, GLsizei count, GLboolean transpose, const GLfloat *value )
-
-    void glUniformMatrix4x2fv(int location, int count, boolean transpose, java.nio.FloatBuffer value);
-
-// // C function void glUniformMatrix3x4fv ( GLint location, GLsizei count, GLboolean transpose, const GLfloat *value )
-//
-// public void glUniformMatrix3x4fv(
-// int location,
-// int count,
-// boolean transpose,
-// float[] value,
-// int offset
-// );
-
-    // C function void glUniformMatrix3x4fv ( GLint location, GLsizei count, GLboolean transpose, const GLfloat *value )
-
-    void glUniformMatrix3x4fv(int location, int count, boolean transpose, java.nio.FloatBuffer value);
-
-// // C function void glUniformMatrix4x3fv ( GLint location, GLsizei count, GLboolean transpose, const GLfloat *value )
-//
-// public void glUniformMatrix4x3fv(
-// int location,
-// int count,
-// boolean transpose,
-// float[] value,
-// int offset
-// );
-
-    // C function void glUniformMatrix4x3fv ( GLint location, GLsizei count, GLboolean transpose, const GLfloat *value )
-
-    void glUniformMatrix4x3fv(int location, int count, boolean transpose, java.nio.FloatBuffer value);
-
-    // C function void glBlitFramebuffer ( GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint
-// dstX1, GLint dstY1, GLbitfield mask, GLenum filter )
-
-    void glBlitFramebuffer(int srcX0, int srcY0, int srcX1, int srcY1, int dstX0, int dstY0, int dstX1, int dstY1,
-                           int mask, int filter);
-
-    // C function void glRenderbufferStorageMultisample ( GLenum target, GLsizei samples, GLenum internalformat, GLsizei width,
-// GLsizei height )
-
-    void glRenderbufferStorageMultisample(int target, int samples, int internalformat, int width, int height);
-
-    // C function void glFramebufferTextureLayer ( GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer )
-
-    void glFramebufferTextureLayer(int target, int attachment, int texture, int level, int layer);
-
-// // C function GLvoid * glMapBufferRange ( GLenum target, GLintptr offset, GLsizeiptr length, GLbitfield access )
-//
-// public java.nio.Buffer glMapBufferRange(
-// int target,
-// int offset,
-// int length,
-// int access
-// );
-
-    // C function void glFlushMappedBufferRange ( GLenum target, GLintptr offset, GLsizeiptr length )
-
-    void glFlushMappedBufferRange(int target, int offset, int length);
-
-    // C function void glBindVertexArray ( GLuint array )
-
-    void glBindVertexArray(int array);
-
-    // C function void glDeleteVertexArrays ( GLsizei n, const GLuint *arrays )
-
-    void glDeleteVertexArrays(int n, int[] arrays, int offset);
-
-    // C function void glDeleteVertexArrays ( GLsizei n, const GLuint *arrays )
-
-    void glDeleteVertexArrays(int n, java.nio.IntBuffer arrays);
-
-    // C function void glGenVertexArrays ( GLsizei n, GLuint *arrays )
-
-    void glGenVertexArrays(int n, int[] arrays, int offset);
-
-    // C function void glGenVertexArrays ( GLsizei n, GLuint *arrays )
-
-    void glGenVertexArrays(int n, java.nio.IntBuffer arrays);
-
-    int glGenVertexArrays();
-
-    void glDeleteVertexArrays(int id);
-
-    // C function GLboolean glIsVertexArray ( GLuint array )
-
-    boolean glIsVertexArray(int array);
-
-    void glBeginTransformFeedback(int primitiveMode);
-
-    // C function void glEndTransformFeedback ( void )
-
-    void glEndTransformFeedback();
-
-    // C function void glBindBufferRange ( GLenum target, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size )
-
-    void glBindBufferRange(int target, int index, int buffer, int offset, int size);
-
-    // C function void glBindBufferBase ( GLenum target, GLuint index, GLuint buffer )
-
-    void glBindBufferBase(int target, int index, int buffer);
-
-    // C function void glTransformFeedbackVaryings ( GLuint program, GLsizei count, const GLchar *varyings, GLenum bufferMode )
-
-    void glTransformFeedbackVaryings(int program, String[] varyings, int bufferMode);
-
-    void glVertexAttribIPointer(int index, int size, int type, int stride, int offset);
-
-    void glGetVertexAttribIiv(int index, int pname, java.nio.IntBuffer params);
-
-    void glGetVertexAttribIuiv(int index, int pname, java.nio.IntBuffer params);
-
-    void glVertexAttribI4i(int index, int x, int y, int z, int w);
-
-    void glVertexAttribI4ui(int index, int x, int y, int z, int w);
-
-    void glGetUniformuiv(int program, int location, java.nio.IntBuffer params);
-
-    int glGetFragDataLocation(int program, String name);
-
-    void glUniform1uiv(int location, int count, java.nio.IntBuffer value);
-
-    void glClearBufferiv(int buffer, int drawbuffer, java.nio.IntBuffer value);
-
-    void glClearBufferuiv(int buffer, int drawbuffer, java.nio.IntBuffer value);
-
-    // C function void glClearBufferfv ( GLenum buffer, GLint drawbuffer, const GLfloat *value )
-
-    void glClearBufferfv(int buffer, int drawbuffer, java.nio.FloatBuffer value);
-
-    // C function void glClearBufferfi ( GLenum buffer, GLint drawbuffer, GLfloat depth, GLint stencil )
-
-    void glClearBufferfi(int buffer, int drawbuffer, float depth, int stencil);
-
-    // C function const GLubyte * glGetStringi ( GLenum name, GLuint index )
 
     String glGetStringi(int name, int index);
 
-    void glCopyBufferSubData(int readTarget, int writeTarget, int readOffset, int writeOffset, int size);
+    void nglClearBufferiv(int buffer, int drawbuffer, long value);
 
-    void glGetUniformIndices(int program, String[] uniformNames, java.nio.IntBuffer uniformIndices);
+    void glClearBufferiv(int buffer, int drawbuffer, IntBuffer value);
 
-    void glGetActiveUniformsiv(int program, int uniformCount, java.nio.IntBuffer uniformIndices, int pname,
-                               java.nio.IntBuffer params);
+    void nglClearBufferuiv(int buffer, int drawbuffer, long value);
 
-    // C function GLuint glGetUniformBlockIndex ( GLuint program, const GLchar *uniformBlockName )
+    void glClearBufferuiv(int buffer, int drawbuffer, IntBuffer value);
 
-    int glGetUniformBlockIndex(int program, String uniformBlockName);
+    void nglClearBufferfv(int buffer, int drawbuffer, long value);
 
-    void glGetActiveUniformBlockiv(int program, int uniformBlockIndex, int pname, java.nio.IntBuffer params);
+    void glClearBufferfv(int buffer, int drawbuffer, FloatBuffer value);
 
-    void glGetActiveUniformBlockName(int program, int uniformBlockIndex, java.nio.Buffer length,
-                                     java.nio.Buffer uniformBlockName);
+    void glClearBufferfi(int buffer, int drawbuffer, float depth, int stencil);
 
-    String glGetActiveUniformBlockName(int program, int uniformBlockIndex);
+    void glVertexAttribI1i(int index, int x);
 
-    // C function void glUniformBlockBinding ( GLuint program, GLuint uniformBlockIndex, GLuint uniformBlockBinding )
+    void glVertexAttribI2i(int index, int x, int y);
 
-    void glUniformBlockBinding(int program, int uniformBlockIndex, int uniformBlockBinding);
+    void glVertexAttribI3i(int index, int x, int y, int z);
 
-    // C function void glDrawArraysInstanced ( GLenum mode, GLint first, GLsizei count, GLsizei instanceCount )
+    void glVertexAttribI4i(int index, int x, int y, int z, int w);
 
-    void glDrawArraysInstanced(int mode, int first, int count, int instanceCount);
+    void glVertexAttribI1ui(int index, int x);
 
-    void glDrawElementsInstanced(int mode, int count, int type, int indicesOffset, int instanceCount);
+    void glVertexAttribI2ui(int index, int x, int y);
 
-    void glGetInteger64v(int pname, java.nio.LongBuffer params);
+    void glVertexAttribI3ui(int index, int x, int y, int z);
 
-    void glGetBufferParameteri64v(int target, int pname, java.nio.LongBuffer params);
+    void glVertexAttribI4ui(int index, int x, int y, int z, int w);
 
-    // C function void glGenSamplers ( GLsizei count, GLuint *samplers )
+    void nglVertexAttribI1iv(int index, long v);
 
-    void glGenSamplers(int count, int[] samplers, int offset);
+    void glVertexAttribI1iv(int index, IntBuffer v);
 
-    // C function void glGenSamplers ( GLsizei count, GLuint *samplers )
+    void nglVertexAttribI2iv(int index, long v);
 
-    void glGenSamplers(int count, java.nio.IntBuffer samplers);
+    void glVertexAttribI2iv(int index, IntBuffer v);
 
-    // C function void glDeleteSamplers ( GLsizei count, const GLuint *samplers )
+    void nglVertexAttribI3iv(int index, long v);
 
-    void glDeleteSamplers(int count, int[] samplers, int offset);
+    void glVertexAttribI3iv(int index, IntBuffer v);
 
-    // C function void glDeleteSamplers ( GLsizei count, const GLuint *samplers )
+    void nglVertexAttribI4iv(int index, long v);
 
-    void glDeleteSamplers(int count, java.nio.IntBuffer samplers);
+    void glVertexAttribI4iv(int index, IntBuffer v);
 
-    // C function GLboolean glIsSampler ( GLuint sampler )
+    void nglVertexAttribI1uiv(int index, long v);
 
-    boolean glIsSampler(int sampler);
+    void glVertexAttribI1uiv(int index, IntBuffer v);
 
-    // C function void glBindSampler ( GLuint unit, GLuint sampler )
+    void nglVertexAttribI2uiv(int index, long v);
 
-    void glBindSampler(int unit, int sampler);
+    void glVertexAttribI2uiv(int index, IntBuffer v);
 
-    // C function void glSamplerParameteri ( GLuint sampler, GLenum pname, GLint param )
+    void nglVertexAttribI3uiv(int index, long v);
 
-    void glSamplerParameteri(int sampler, int pname, int param);
+    void glVertexAttribI3uiv(int index, IntBuffer v);
 
-    void glSamplerParameteriv(int sampler, int pname, java.nio.IntBuffer param);
+    void nglVertexAttribI4uiv(int index, long v);
 
-    // C function void glSamplerParameterf ( GLuint sampler, GLenum pname, GLfloat param )
+    void glVertexAttribI4uiv(int index, IntBuffer v);
 
-    void glSamplerParameterf(int sampler, int pname, float param);
+    void nglVertexAttribI4bv(int index, long v);
 
-    void glSamplerParameterfv(int sampler, int pname, java.nio.FloatBuffer param);
+    void glVertexAttribI4bv(int index, ByteBuffer v);
 
-    void glGetSamplerParameteriv(int sampler, int pname, java.nio.IntBuffer params);
+    void nglVertexAttribI4sv(int index, long v);
 
-    void glGetSamplerParameterfv(int sampler, int pname, java.nio.FloatBuffer params);
+    void glVertexAttribI4sv(int index, ShortBuffer v);
 
-    // C function void glVertexAttribDivisor ( GLuint index, GLuint divisor )
+    void nglVertexAttribI4ubv(int index, long v);
 
-    void glVertexAttribDivisor(int index, int divisor);
+    void glVertexAttribI4ubv(int index, ByteBuffer v);
 
-    // C function void glBindTransformFeedback ( GLenum target, GLuint id )
+    void nglVertexAttribI4usv(int index, long v);
 
-    void glBindTransformFeedback(int target, int id);
+    void glVertexAttribI4usv(int index, ShortBuffer v);
 
-    // C function void glDeleteTransformFeedbacks ( GLsizei n, const GLuint *ids )
+    void nglVertexAttribIPointer(int index, int size, int type, int stride, long pointer);
 
-    void glDeleteTransformFeedbacks(int n, int[] ids, int offset);
+    void glVertexAttribIPointer(int index, int size, int type, int stride, ByteBuffer pointer);
 
-    // C function void glDeleteTransformFeedbacks ( GLsizei n, const GLuint *ids )
+    void glVertexAttribIPointer(int index, int size, int type, int stride, long pointer);
 
-    void glDeleteTransformFeedbacks(int n, java.nio.IntBuffer ids);
+    void glVertexAttribIPointer(int index, int size, int type, int stride, ShortBuffer pointer);
 
-    // C function void glGenTransformFeedbacks ( GLsizei n, GLuint *ids )
+    void glVertexAttribIPointer(int index, int size, int type, int stride, IntBuffer pointer);
 
-    void glGenTransformFeedbacks(int n, int[] ids, int offset);
+    void nglGetVertexAttribIiv(int index, int pname, long params);
 
-    // C function void glGenTransformFeedbacks ( GLsizei n, GLuint *ids )
+    void glGetVertexAttribIiv(int index, int pname, IntBuffer params);
 
-    void glGenTransformFeedbacks(int n, java.nio.IntBuffer ids);
+    int glGetVertexAttribIi(int index, int pname);
 
-    // C function GLboolean glIsTransformFeedback ( GLuint id )
+    void nglGetVertexAttribIuiv(int index, int pname, long params);
 
-    boolean glIsTransformFeedback(int id);
+    void glGetVertexAttribIuiv(int index, int pname, IntBuffer params);
 
-    // C function void glPauseTransformFeedback ( void )
+    int glGetVertexAttribIui(int index, int pname);
 
-    void glPauseTransformFeedback();
+    void glUniform1ui(int location, int v0);
 
-    // C function void glResumeTransformFeedback ( void )
+    void glUniform2ui(int location, int v0, int v1);
 
-    void glResumeTransformFeedback();
+    void glUniform3ui(int location, int v0, int v1, int v2);
 
-    void glProgramParameteri(int program, int pname, int value);
+    void glUniform4ui(int location, int v0, int v1, int v2, int v3);
 
-    void glInvalidateFramebuffer(int target, int numAttachments, java.nio.IntBuffer attachments);
+    void nglUniform1uiv(int location, int count, long value);
 
-    void glInvalidateSubFramebuffer(int target, int numAttachments, java.nio.IntBuffer attachments, int x, int y,
-                                    int width, int height);
+    void glUniform1uiv(int location, IntBuffer value);
 
+    void nglUniform2uiv(int location, int count, long value);
+
+    void glUniform2uiv(int location, IntBuffer value);
+
+    void nglUniform3uiv(int location, int count, long value);
+
+    void glUniform3uiv(int location, IntBuffer value);
+
+    void nglUniform4uiv(int location, int count, long value);
+
+    void glUniform4uiv(int location, IntBuffer value);
+
+    void nglGetUniformuiv(int program, int location, long params);
+
+    void glGetUniformuiv(int program, int location, IntBuffer params);
+
+    int glGetUniformui(int program, int location);
+
+    void nglBindFragDataLocation(int program, int colorNumber, long name);
+
+    void glBindFragDataLocation(int program, int colorNumber, ByteBuffer name);
+
+    void glBindFragDataLocation(int program, int colorNumber, CharSequence name);
+
+    int nglGetFragDataLocation(int program, long name);
+
+    int glGetFragDataLocation(int program, ByteBuffer name);
+
+    int glGetFragDataLocation(int program, CharSequence name);
+
+    void glBeginConditionalRender(int id, int mode);
+
+    void glEndConditionalRender();
+
+    long nglMapBufferRange(int target, long offset, long length, int access);
+
+
+    ByteBuffer glMapBufferRange(int target, long offset, long length, int access);
+
+
+    ByteBuffer glMapBufferRange(int target, long offset, long length, int access, ByteBuffer old_buffer);
+
+    void glFlushMappedBufferRange(int target, long offset, long length);
+
+    void glClampColor(int target, int clamp);
+
+    boolean glIsRenderbuffer(int renderbuffer);
+
+    void glBindRenderbuffer(int target, int renderbuffer);
+
+    void nglDeleteRenderbuffers(int n, long renderbuffers);
+
+    void glDeleteRenderbuffers(IntBuffer renderbuffers);
+
+    void glDeleteRenderbuffers(int renderbuffer);
+
+    void nglGenRenderbuffers(int n, long renderbuffers);
+
+    void glGenRenderbuffers(IntBuffer renderbuffers);
+
+    int glGenRenderbuffers();
+
+    void glRenderbufferStorage(int target, int internalformat, int width, int height);
+
+    void glRenderbufferStorageMultisample(int target, int samples, int internalformat, int width, int height);
+
+    void nglGetRenderbufferParameteriv(int target, int pname, long params);
+
+    void glGetRenderbufferParameteriv(int target, int pname, IntBuffer params);
+
+    int glGetRenderbufferParameteri(int target, int pname);
+
+    boolean glIsFramebuffer(int framebuffer);
+
+    void glBindFramebuffer(int target, int framebuffer);
+
+    void nglDeleteFramebuffers(int n, long framebuffers);
+
+    void glDeleteFramebuffers(IntBuffer framebuffers);
+
+    void glDeleteFramebuffers(int framebuffer);
+
+    void nglGenFramebuffers(int n, long framebuffers);
+
+    void glGenFramebuffers(IntBuffer framebuffers);
+
+    int glGenFramebuffers();
+
+    int glCheckFramebufferStatus(int target);
+
+    void glFramebufferTexture1D(int target, int attachment, int textarget, int texture, int level);
+
+    void glFramebufferTexture2D(int target, int attachment, int textarget, int texture, int level);
+
+    void glFramebufferTexture3D(int target, int attachment, int textarget, int texture, int level, int layer);
+
+    void glFramebufferTextureLayer(int target, int attachment, int texture, int level, int layer);
+
+    void glFramebufferRenderbuffer(int target, int attachment, int renderbuffertarget, int renderbuffer);
+
+    void nglGetFramebufferAttachmentParameteriv(int target, int attachment, int pname, long params);
+
+    void glGetFramebufferAttachmentParameteriv(int target, int attachment, int pname, IntBuffer params);
+
+    int glGetFramebufferAttachmentParameteri(int target, int attachment, int pname);
+
+    void glBlitFramebuffer(int srcX0, int srcY0, int srcX1, int srcY1, int dstX0, int dstY0, int dstX1, int dstY1, int mask, int filter);
+
+    void glGenerateMipmap(int target);
+
+    void nglTexParameterIiv(int target, int pname, long params);
+
+    void glTexParameterIiv(int target, int pname, IntBuffer params);
+
+    void glTexParameterIi(int target, int pname, int param);
+
+    void nglTexParameterIuiv(int target, int pname, long params);
+
+    void glTexParameterIuiv(int target, int pname, IntBuffer params);
+
+    void glTexParameterIui(int target, int pname, int param);
+
+    void nglGetTexParameterIiv(int target, int pname, long params);
+
+    void glGetTexParameterIiv(int target, int pname, IntBuffer params);
+
+    int glGetTexParameterIi(int target, int pname);
+
+    void nglGetTexParameterIuiv(int target, int pname, long params);
+
+    void glGetTexParameterIuiv(int target, int pname, IntBuffer params);
+
+    int glGetTexParameterIui(int target, int pname);
+
+    void glColorMaski(int buf, boolean r, boolean g, boolean b, boolean a);
+
+    void nglGetBooleani_v(int target, int index, long data);
+
+    void glGetBooleani_v(int target, int index, ByteBuffer data);
+
+    boolean glGetBooleani(int target, int index);
+
+    void nglGetIntegeri_v(int target, int index, long data);
+
+    void glGetIntegeri_v(int target, int index, IntBuffer data);
+
+    int glGetIntegeri(int target, int index);
+
+    void glEnablei(int cap, int index);
+
+    void glDisablei(int target, int index);
+
+    boolean glIsEnabledi(int target, int index);
+
+    void glBindBufferRange(int target, int index, int buffer, long offset, long size);
+
+    void glBindBufferBase(int target, int index, int buffer);
+
+    void glBeginTransformFeedback(int primitiveMode);
+
+    void glEndTransformFeedback();
+
+    void nglTransformFeedbackVaryings(int program, int count, long varyings, int bufferMode);
+
+    void glTransformFeedbackVaryings(int program, CharSequence[] varyings, int bufferMode);
+
+    void glTransformFeedbackVaryings(int program, CharSequence varying, int bufferMode);
+
+    void nglGetTransformFeedbackVarying(int program, int index, int bufSize, long length, long size, long type, long name);
+
+    void glGetTransformFeedbackVarying(int program, int index, IntBuffer length, IntBuffer size, IntBuffer type, ByteBuffer name);
+
+    String glGetTransformFeedbackVarying(int program, int index, int bufSize, IntBuffer size, IntBuffer type);
+
+    String glGetTransformFeedbackVarying(int program, int index, IntBuffer size, IntBuffer type);
+
+    void glBindVertexArray(int array);
+
+    void nglDeleteVertexArrays(int n, long arrays);
+
+    void glDeleteVertexArrays(IntBuffer arrays);
+
+    void glDeleteVertexArrays(int array);
+
+    void nglGenVertexArrays(int n, long arrays);
+
+    void glGenVertexArrays(IntBuffer arrays);
+
+    int glGenVertexArrays();
+
+    boolean glIsVertexArray(int array);
+
+    void glClearBufferiv(int buffer, int drawbuffer, int[] value);
+
+    void glClearBufferuiv(int buffer, int drawbuffer, int[] value);
+
+    void glClearBufferfv(int buffer, int drawbuffer, float[] value);
+
+    void glVertexAttribI1iv(int index, int[] v);
+
+    void glVertexAttribI2iv(int index, int[] v);
+
+    void glVertexAttribI3iv(int index, int[] v);
+
+    void glVertexAttribI4iv(int index, int[] v);
+
+    void glVertexAttribI1uiv(int index, int[] v);
+
+    void glVertexAttribI2uiv(int index, int[] v);
+
+    void glVertexAttribI3uiv(int index, int[] v);
+
+    void glVertexAttribI4uiv(int index, int[] v);
+
+    void glVertexAttribI4sv(int index, short[] v);
+
+    void glVertexAttribI4usv(int index, short[] v);
+
+    void glGetVertexAttribIiv(int index, int pname, int[] params);
+
+    void glGetVertexAttribIuiv(int index, int pname, int[] params);
+
+    void glUniform1uiv(int location, int[] value);
+
+    void glUniform2uiv(int location, int[] value);
+
+    void glUniform3uiv(int location, int[] value);
+
+    void glUniform4uiv(int location, int[] value);
+
+    void glGetUniformuiv(int program, int location, int[] params);
+
+    void glDeleteRenderbuffers(int[] renderbuffers);
+
+    void glGenRenderbuffers(int[] renderbuffers);
+
+    void glGetRenderbufferParameteriv(int target, int pname, int[] params);
+
+    void glDeleteFramebuffers(int[] framebuffers);
+
+    void glGenFramebuffers(int[] framebuffers);
+
+    void glGetFramebufferAttachmentParameteriv(int target, int attachment, int pname, int[] params);
+
+    void glTexParameterIiv(int target, int pname, int[] params);
+
+    void glTexParameterIuiv(int target, int pname, int[] params);
+
+    void glGetTexParameterIiv(int target, int pname, int[] params);
+
+    void glGetTexParameterIuiv(int target, int pname, int[] params);
+
+    void glGetIntegeri_v(int target, int index, int[] data);
+
+    void glGetTransformFeedbackVarying(int program, int index, int[] length, int[] size, int[] type, ByteBuffer name);
+
+    void glDeleteVertexArrays(int[] arrays);
+
+    void glGenVertexArrays(int[] arrays);
 }

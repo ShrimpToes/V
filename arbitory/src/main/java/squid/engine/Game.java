@@ -8,7 +8,7 @@ public class Game implements Runnable{
     public static double msPerFrame = 20d;
     public static double msPerTick = 50d;
     public String name;
-    private IWindow window;
+    public static IWindow window;
     private MouseInput mouseInput;
     private final Thread gameThread;
     private final IGame game;
@@ -18,7 +18,7 @@ public class Game implements Runnable{
     public Game(String name, IWindow window, IGame game, GL gl) {
         Game.gl = gl;
         this.name = name;
-        this.window = window;
+        Game.window = window;
         mouseInput = new MouseInput();
         this.game = game;
         gameThread = new Thread(this, name + "_thread");
