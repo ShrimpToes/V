@@ -1,9 +1,9 @@
 package squid.engine.graphics.uniforms;
 
+import squid.engine.Game;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.lwjgl.opengl.GL20C.glGetUniformLocation;
 
 public interface Uniform {
 
@@ -15,7 +15,7 @@ public interface Uniform {
     void set();
 
     static int createUniform(int programId, String name) throws Exception {
-        int uniformLocation = glGetUniformLocation(programId, name);
+        int uniformLocation = Game.gl.gl20.glGetUniformLocation(programId, name);
         if (uniformLocation < 0) {
             throw new Exception("Could not find uniform: " + name);
         }

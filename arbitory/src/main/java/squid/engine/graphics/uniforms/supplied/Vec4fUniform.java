@@ -1,11 +1,9 @@
 package squid.engine.graphics.uniforms.supplied;
 
 import org.joml.Vector4f;
-import squid.engine.graphics.uniforms.supplied.SuppliedUniform;
+import squid.engine.Game;
 
 import java.util.function.Supplier;
-
-import static org.lwjgl.opengl.GL20C.glUniform4f;
 
 public class Vec4fUniform extends SuppliedUniform<Vector4f> {
 
@@ -19,6 +17,6 @@ public class Vec4fUniform extends SuppliedUniform<Vector4f> {
 
     @Override
     public void set() {
-        glUniform4f(location, value.get().x, value.get().y, value.get().z, value.get().w);
+        Game.gl.gl20.glUniform4f(location, value.get().x, value.get().y, value.get().z, value.get().w);
     }
 }

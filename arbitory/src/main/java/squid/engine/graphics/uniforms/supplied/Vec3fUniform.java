@@ -1,11 +1,9 @@
 package squid.engine.graphics.uniforms.supplied;
 
 import org.joml.Vector3f;
-import squid.engine.graphics.uniforms.supplied.SuppliedUniform;
+import squid.engine.Game;
 
 import java.util.function.Supplier;
-
-import static org.lwjgl.opengl.GL20C.glUniform3f;
 
 public class Vec3fUniform extends SuppliedUniform<Vector3f> {
 
@@ -20,6 +18,6 @@ public class Vec3fUniform extends SuppliedUniform<Vector3f> {
     @Override
     public void set() {
         Vector3f vector = value.get();
-        glUniform3f(this.location, vector.x, vector.y, vector.z);
+        Game.gl.gl20.glUniform3f(this.location, vector.x, vector.y, vector.z);
     }
 }

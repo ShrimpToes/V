@@ -3,8 +3,12 @@ package squid.engine.graphics;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
+
 import squid.engine.Game;
 import squid.engine.IWindow;
+import squid.engine.graphics.gl.GL11;
+import squid.engine.graphics.gl.GL20;
+import squid.engine.graphics.gl.GL30;
 import squid.engine.graphics.lighting.*;
 import squid.engine.graphics.textures.Material;
 import squid.engine.graphics.textures.Texture;
@@ -25,10 +29,9 @@ import squid.engine.utils.Utils;
 import java.util.List;
 import java.util.Map;
 
-import static org.lwjgl.opengl.GL11C.*;
-import static org.lwjgl.opengl.GL15C.*;
-import static org.lwjgl.opengl.GL30C.GL_FRAMEBUFFER;
-import static org.lwjgl.opengl.GL30C.glBindFramebuffer;
+import static squid.engine.graphics.gl.GL11.*;
+import static squid.engine.graphics.gl.GL15.GL_TEXTURE2;
+import static squid.engine.graphics.gl.GL30.GL_FRAMEBUFFER;
 
 public class Renderer {
 
@@ -92,7 +95,14 @@ public class Renderer {
     private SettableIntegerUniform particleNumRows;
     private SettableIntegerUniform particleNumCols;
 
+    private final GL11 gl11;
+    private final GL20 gl20;
+    private final GL30 gl30;
+
     public Renderer() {
+        gl11 = Game.gl.gl11;
+        gl20 = Game.gl.gl20;
+        gl30 = Game.gl.gl30;
         transformation = new Transformation();
         specularPower = 10f;
     }
@@ -246,7 +256,7 @@ public class Renderer {
 
         renderDepthMap(IWindow, scene, camera);
 
-        glViewport(0, 0, IWindow.getWidth(), IWindow.getHeight());
+        gl11.glViewport(0, 0, IWindow.getWidth(), IWindow.getHeight());
 
         transformation.updateProjectionMatrix(FOV, IWindow.getWidth(), IWindow.getHeight(), Z_NEAR, Z_FAR);
         transformation.updateViewMatrix(camera);
@@ -258,10 +268,10 @@ public class Renderer {
     }
 
     public void renderDepthMap(IWindow IWindow, Scene scene, Camera camera) {
-        glBindFramebuffer(GL_FRAMEBUFFER, shadowMap.getDepthMapFBO());
-        glViewport(0, 0, ShadowMap.SHADOW_MAP_WIDTH, ShadowMap.SHADOW_MAP_HEIGHT);
+        gl30.glBindFramebuffer(GL_FRAMEBUFFER, shadowMap.getDepthMapFBO());
+        gl11.glViewport(0, 0, ShadowMap.SHADOW_MAP_WIDTH, ShadowMap.SHADOW_MAP_HEIGHT);
 
-        glClear(GL_DEPTH_BUFFER_BIT);
+        gl11.glClear(GL_DEPTH_BUFFER_BIT);
 
         depthShader.bind();
 
@@ -298,7 +308,7 @@ public class Renderer {
         }
 
         depthShader.unbind();
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        gl30.glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
     public void renderScene(Scene scene) {
@@ -335,8 +345,8 @@ public class Renderer {
             if (!isShadows) {
                 material.setValue(mesh.getMaterial());
                 material.set();
-                glActiveTexture(GL_TEXTURE2);
-                glBindTexture(GL_TEXTURE_2D, shadowMap.getDepthMap().getId());
+                gl20.glActiveTexture(GL_TEXTURE2);
+                gl11.glBindTexture(GL_TEXTURE_2D, shadowMap.getDepthMap().getId());
             }
 
             mesh.renderList(meshMap.get(mesh), (GamePiece gamePiece) -> {
@@ -369,8 +379,8 @@ public class Renderer {
         for (InstancedMesh mesh : meshMap.keySet()) {
             if (!isShadows) {
                 material.setValue(mesh.getMaterial());
-                glActiveTexture(GL_TEXTURE2);
-                glBindTexture(GL_TEXTURE_2D, shadowMap.getDepthMap().getId());
+                gl20.glActiveTexture(GL_TEXTURE2);
+                gl11.glBindTexture(GL_TEXTURE_2D, shadowMap.getDepthMap().getId());
             }
             mesh.instancedRender(meshMap.get(mesh), isShadows, transformation, viewMatrix, lightViewMatrix);
         }
@@ -387,8 +397,8 @@ public class Renderer {
         IParticleEmitter[] emitters = scene.getParticleEmitters();
         int numEmitters = emitters != null ? emitters.length : 0;
 
-        glDepthMask(false);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+        gl11.glDepthMask(false);
+        gl11.glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
         for (int i = 0; i < numEmitters; i++) {
             IParticleEmitter emitter = emitters[i];
@@ -401,7 +411,8 @@ public class Renderer {
             mesh.instancedRender(emitter.getParticles(), true, transformation, viewMatrix, null);
         }
 
-        glDepthMask(true);glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        gl11.glDepthMask(true);
+        gl11.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         particleShader.unbind();
     }

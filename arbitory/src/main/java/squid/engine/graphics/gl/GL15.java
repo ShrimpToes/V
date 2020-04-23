@@ -3,6 +3,11 @@ package squid.engine.graphics.gl;
 import java.nio.*;
 
 public interface GL15 {
+
+    //inherited from GL12
+    int GL_CLAMP_TO_EDGE = 0x812F;
+
+
     //inherited from GL13
     int
             GL_TEXTURE0  = 0x84C0,

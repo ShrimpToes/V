@@ -1,6 +1,8 @@
 package squid.graphics.gl;
 
 import org.lwjgl.opengl.GL30C;
+import org.lwjgl.opengl.GL31C;
+import org.lwjgl.opengl.GL33C;
 import squid.engine.graphics.gl.GL30;
 
 import java.nio.ByteBuffer;
@@ -942,5 +944,15 @@ public class SquidGL30 implements GL30 {
     @Override
     public void glGenVertexArrays(int[] arrays) {
         GL30C.glGenVertexArrays(arrays);
+    }
+
+    @Override
+    public void glDrawElementsInstanced(int mode, int count, int type, long indices, int primcount) {
+        GL31C.glDrawElementsInstanced(mode, count, type, indices, primcount);
+    }
+
+    @Override
+    public void glVertexAttribDivisor(int index, int divisor) {
+        GL33C.glVertexAttribDivisor(index, divisor);
     }
 }

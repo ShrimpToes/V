@@ -1,15 +1,17 @@
 package squid.engine.graphics.textures;
 
-import org.lwjgl.system.MemoryStack;
+import squid.engine.Game;
+import squid.engine.graphics.gl.GL11;
+import squid.engine.graphics.gl.GL30;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
-import static org.lwjgl.opengl.GL11C.*;
-import static org.lwjgl.opengl.GL12C.GL_CLAMP_TO_EDGE;
-import static org.lwjgl.opengl.GL15C.glBeginQuery;
-import static org.lwjgl.opengl.GL30C.glGenerateMipmap;
+import static squid.engine.graphics.gl.GL11.*;
+import static squid.engine.graphics.gl.GL15.GL_CLAMP_TO_EDGE;
+
 import static org.lwjgl.stb.STBImage.*;
+import org.lwjgl.system.MemoryStack;
 
 public class Texture {
 
@@ -18,6 +20,9 @@ public class Texture {
     private final int height;
     private final String name;
     private int rows, cols = 1;
+
+    private final GL11 gl11 = Game.gl.gl11;
+    private final GL30 gl30 = Game.gl.gl30;
 
     public Texture(String fileName) throws Exception {
         this.name = fileName;
@@ -48,16 +53,16 @@ public class Texture {
 
     public Texture(int width, int height, int pixelFormat) throws Exception {
         this.name = "empty_texture";
-        this.id = glGenTextures();
+        this.id = gl11.glGenTextures();
         this.width = width;
         this.height = height;
-        glBindTexture(GL_TEXTURE_2D, this.id);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, this.width, this.height,
+        gl11.glBindTexture(GL_TEXTURE_2D, this.id);
+        gl11.glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, this.width, this.height,
                 0, pixelFormat, GL_FLOAT, (ByteBuffer) null);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        gl11.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        gl11.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        gl11.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        gl11.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     }
 
     public Texture(ByteBuffer imageBuffer) throws Exception {
@@ -85,21 +90,21 @@ public class Texture {
 
     private int createTexture(ByteBuffer buf) {
         // Create a new OpenGL texture
-        int textureId = glGenTextures();
+        int textureId = gl11.glGenTextures();
         // Bind the texture
-        glBindTexture(GL_TEXTURE_2D, textureId);
+        gl11.glBindTexture(GL_TEXTURE_2D, textureId);
 
         // Tell OpenGL how to unpack the RGBA bytes. Each component is 1 byte size
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+        gl11.glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        gl11.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        gl11.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
         // Upload the texture data
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0,
+        gl11.glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0,
                 GL_RGBA, GL_UNSIGNED_BYTE, buf);
         // Generate Mip Map
-        glGenerateMipmap(GL_TEXTURE_2D);
+        gl30.glGenerateMipmap(GL_TEXTURE_2D);
 
         return textureId;
     }
@@ -133,7 +138,7 @@ public class Texture {
     }
 
     public void cleanup() {
-        glDeleteTextures(id);
+        gl11.glDeleteTextures(id);
     }
 
 }

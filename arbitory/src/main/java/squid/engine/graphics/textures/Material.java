@@ -1,7 +1,6 @@
 package squid.engine.graphics.textures;
 
 import org.joml.Vector4f;
-import squid.engine.graphics.textures.Texture;
 import squid.engine.graphics.uniforms.*;
 import squid.engine.graphics.uniforms.supplied.FloatUniform;
 import squid.engine.graphics.uniforms.supplied.IntegerUniform;

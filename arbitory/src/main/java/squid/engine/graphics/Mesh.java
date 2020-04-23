@@ -1,7 +1,5 @@
 package squid.engine.graphics;
 
-import org.lwjgl.opengl.GL20C;
-import org.lwjgl.opengl.GL30C;
 import squid.engine.Game;
 import squid.engine.graphics.gl.GL15;
 import squid.engine.graphics.gl.GL20;

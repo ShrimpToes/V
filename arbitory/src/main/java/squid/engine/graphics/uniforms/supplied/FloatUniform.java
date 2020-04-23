@@ -1,8 +1,8 @@
 package squid.engine.graphics.uniforms.supplied;
 
-import java.util.function.Supplier;
+import squid.engine.Game;
 
-import static org.lwjgl.opengl.GL20C.glUniform1f;
+import java.util.function.Supplier;
 
 public class FloatUniform extends SuppliedUniform<Float> {
 
@@ -16,6 +16,6 @@ public class FloatUniform extends SuppliedUniform<Float> {
 
     @Override
     public void set() {
-        glUniform1f(this.location, value.get());
+        Game.gl.gl20.glUniform1f(this.location, value.get());
     }
 }

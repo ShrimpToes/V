@@ -1,8 +1,7 @@
 package squid.engine.graphics.uniforms.settable;
 
 import org.joml.Vector4f;
-
-import static org.lwjgl.opengl.GL20C.glUniform4f;
+import squid.engine.Game;
 
 public class SettableVec4fUniform extends SettableUniform<Vector4f> {
 
@@ -12,6 +11,6 @@ public class SettableVec4fUniform extends SettableUniform<Vector4f> {
 
     @Override
     public void set() {
-        glUniform4f(this.location, value.x, value.y, value.z, value.w);
+        Game.gl.gl20.glUniform4f(this.location, value.x, value.y, value.z, value.w);
     }
 }

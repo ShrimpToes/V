@@ -1,6 +1,6 @@
 package squid.engine.graphics.uniforms.settable;
 
-import static org.lwjgl.opengl.GL20C.glUniform1i;
+import squid.engine.Game;
 
 public class SettableIntegerUniform extends SettableUniform<Integer> {
 
@@ -10,6 +10,6 @@ public class SettableIntegerUniform extends SettableUniform<Integer> {
 
     @Override
     public void set() {
-        glUniform1i(location, value);
+        Game.gl.gl20.glUniform1i(location, value);
     }
 }

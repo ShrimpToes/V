@@ -1,7 +1,7 @@
 package squid.engine.graphics;
 
 import org.joml.Matrix4f;
-import org.lwjgl.system.MemoryUtil;
+
 import squid.engine.graphics.textures.Texture;
 import squid.engine.scene.pieces.GamePiece;
 import squid.engine.utils.Transformation;
@@ -9,11 +9,9 @@ import squid.engine.utils.Transformation;
 import java.nio.FloatBuffer;
 import java.util.List;
 
-import static org.lwjgl.opengl.GL15C.*;
-import static org.lwjgl.opengl.GL20C.*;
-import static org.lwjgl.opengl.GL30C.glBindVertexArray;
-import static org.lwjgl.opengl.GL31C.glDrawElementsInstanced;
-import static org.lwjgl.opengl.GL33C.glVertexAttribDivisor;
+import static squid.engine.graphics.gl.GL11.*;
+import static squid.engine.graphics.gl.GL15.GL_ARRAY_BUFFER;
+import static squid.engine.graphics.gl.GL15.GL_DYNAMIC_DRAW;
 
 public class InstancedMesh extends Mesh {
     private static final int FLOAT_SIZE_BYTES = 4;
@@ -32,41 +30,41 @@ public class InstancedMesh extends Mesh {
         this.numInstances = numInstances;
         gl30.glBindVertexArray(vaoId);
 
-        instanceDataVBO = glGenBuffers();
+        instanceDataVBO = gl15.glGenBuffers();
         vboList.add(instanceDataVBO);
-        instanceDataBuffer = MemoryUtil.memAllocFloat(numInstances * INSTANCE_SIZE_FLOATS);
-        glBindBuffer(GL_ARRAY_BUFFER, instanceDataVBO);
+        instanceDataBuffer = FloatBuffer.allocate(numInstances * INSTANCE_SIZE_FLOATS);
+        gl15.glBindBuffer(GL_ARRAY_BUFFER, instanceDataVBO);
         int start = 5;
         int strideStart = 0;
         for (int i = 0; i < 4; i++) {
-            glVertexAttribPointer(start, 4, GL_FLOAT, false, INSTANCE_SIZE_BYTES, strideStart);
-            glVertexAttribDivisor(start, 1);
-            glEnableVertexAttribArray(start);
+            gl20.glVertexAttribPointer(start, 4, GL_FLOAT, false, INSTANCE_SIZE_BYTES, strideStart);
+            gl30.glVertexAttribDivisor(start, 1);
+            gl20.glEnableVertexAttribArray(start);
             start++;
             strideStart += VECTOR4F_SIZE_BYTES;
         }
 
         for (int i = 0; i < 4; i++) {
-            glVertexAttribPointer(start, 4, GL_FLOAT, false, INSTANCE_SIZE_BYTES, strideStart);
-            glVertexAttribDivisor(start, 1);
-            glEnableVertexAttribArray(start);
+            gl20.glVertexAttribPointer(start, 4, GL_FLOAT, false, INSTANCE_SIZE_BYTES, strideStart);
+            gl30.glVertexAttribDivisor(start, 1);
+            gl20.glEnableVertexAttribArray(start);
             start++;
             strideStart += VECTOR4F_SIZE_BYTES;
         }
 
-        glVertexAttribPointer(start, 2, GL_FLOAT, false, INSTANCE_SIZE_BYTES, strideStart);
-        glVertexAttribDivisor(start, 1);
-        glEnableVertexAttribArray(start);
+        gl20.glVertexAttribPointer(start, 2, GL_FLOAT, false, INSTANCE_SIZE_BYTES, strideStart);
+        gl30.glVertexAttribDivisor(start, 1);
+        gl20.glEnableVertexAttribArray(start);
 
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindVertexArray(0);
+        gl15.glBindBuffer(GL_ARRAY_BUFFER, 0);
+        gl30.glBindVertexArray(0);
     }
 
     @Override
     public void cleanup() {
         super.cleanup();
         if (this.instanceDataBuffer != null) {
-            MemoryUtil.memFree(instanceDataBuffer);
+            instanceDataBuffer.clear();
         }
     }
 
@@ -77,7 +75,7 @@ public class InstancedMesh extends Mesh {
         int start = 5;
         int numElements = 4 * 2;
         for (int i = 0; i < numElements; i++) {
-            glEnableVertexAttribArray(start + i);
+            gl20.glEnableVertexAttribArray(start + i);
         }
     }
 
@@ -86,7 +84,7 @@ public class InstancedMesh extends Mesh {
         int start = 5;
         int numElements = 4 * 2;
         for (int i = 0; i < numElements; i++) {
-            glDisableVertexAttribArray(start + i);
+            gl20.glDisableVertexAttribArray(start + i);
         }
         super.finishRender();
     }
@@ -142,10 +140,10 @@ public class InstancedMesh extends Mesh {
             }
             i++;
         }
-        glBindBuffer(GL_ARRAY_BUFFER, instanceDataVBO);
-        glBufferData(GL_ARRAY_BUFFER, instanceDataBuffer, GL_DYNAMIC_DRAW);
-        glDrawElementsInstanced(GL_TRIANGLES, getVertexCount(), GL_UNSIGNED_INT, 0, gamePieces.size());
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        gl15.glBindBuffer(GL_ARRAY_BUFFER, instanceDataVBO);
+        gl15.glBufferData(GL_ARRAY_BUFFER, instanceDataBuffer, GL_DYNAMIC_DRAW);
+        gl30.glDrawElementsInstanced(GL_TRIANGLES, getVertexCount(), GL_UNSIGNED_INT, 0, gamePieces.size());
+        gl15.glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     }
 }

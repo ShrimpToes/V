@@ -1,6 +1,6 @@
 package squid.engine.graphics.uniforms.settable;
 
-import static org.lwjgl.opengl.GL20C.glUniform1f;
+import squid.engine.Game;
 
 public class SettableFloatUniform extends SettableUniform<Float> {
     public SettableFloatUniform(String name) {
@@ -9,6 +9,6 @@ public class SettableFloatUniform extends SettableUniform<Float> {
 
     @Override
     public void set() {
-        glUniform1f(location, value);
+        Game.gl.gl20.glUniform1f(location, value);
     }
 }

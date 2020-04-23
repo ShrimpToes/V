@@ -752,4 +752,10 @@ public interface GL30 {
     void glDeleteVertexArrays(int[] arrays);
 
     void glGenVertexArrays(int[] arrays);
+
+    //GL31C
+    void glDrawElementsInstanced(int mode, int count, int type, long indices, int primcount);
+
+    //GL33C
+    void glVertexAttribDivisor(int index, int divisor);
 }
